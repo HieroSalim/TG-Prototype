@@ -1,4 +1,4 @@
-package com.example.domicilio.ui.home
+package com.example.domicilio.view.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
