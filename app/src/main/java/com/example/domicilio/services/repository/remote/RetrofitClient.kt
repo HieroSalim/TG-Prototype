@@ -1,4 +1,4 @@
-package com.example.domicilio.services.model.repository
+package com.example.domicilio.services.repository.remote
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -13,7 +13,7 @@ class RetrofitClient private constructor() {
 
         private fun getRetrofitInstance(): Retrofit{
             val httpClient = OkHttpClient.Builder()
-            if (!::retrofit.isInitialized){
+            if (!Companion::retrofit.isInitialized){
                 retrofit = Retrofit.Builder()
                     .baseUrl(baseurl)
                     .client(httpClient.build())
@@ -21,6 +21,10 @@ class RetrofitClient private constructor() {
                     .build()
             }
             return retrofit
+        }
+
+        fun <S> createService(serviceClass: Class<S>): S {
+            return getRetrofitInstance().create(serviceClass)
         }
 
     }

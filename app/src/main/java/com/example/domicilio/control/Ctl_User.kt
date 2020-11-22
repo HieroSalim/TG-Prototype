@@ -1,5 +1,8 @@
 package com.example.domicilio.control
 
+import com.example.domicilio.services.model.Login
+
+
 class Ctl_User{
     fun add(){
 
@@ -10,8 +13,9 @@ class Ctl_User{
     fun edit(){
 
     }
-    fun filter(){
-
+    fun filter (user : String, pass : String) : Login {
+        val user = Login("","","")
+        return user
     }
     fun listDoctor(){
 

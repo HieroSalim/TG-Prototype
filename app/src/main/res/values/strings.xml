@@ -10,4 +10,6 @@
     <string name="menu_home">Home</string>
     <string name="menu_appointments">Agendamentos</string>
     <string name="menu_chat">Chat</string>
+
+    <string name="bt_entrar">ENTRAR</string>
 </resources>
