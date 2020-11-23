@@ -4,18 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.domicilio.R
 
-class RegisterUser : AppCompatActivity() {
+class ActivityEvalue : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register_user)
+        setContentView(R.layout.activity_evalue)
     }
-    fun saveUser(){
-
-    }
-    fun verifyCPF(){
-
-    }
-    fun editUser(){
+    fun evaluationDoctor(){
 
     }
 }

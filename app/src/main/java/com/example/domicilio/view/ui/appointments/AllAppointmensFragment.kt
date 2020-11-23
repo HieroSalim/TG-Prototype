@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.domicilio.R
 
-class AppointmensFragment : Fragment() {
+class AllAppointmensFragment : Fragment() {
 
     private lateinit var appointmentsViewModel: AppointmentsViewModel
 
@@ -21,11 +21,28 @@ class AppointmensFragment : Fragment() {
     ): View? {
         appointmentsViewModel =
                 ViewModelProvider(this).get(AppointmentsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_consult, container, false)
+        val root = inflater.inflate(R.layout.fragment_all_appointments, container, false)
         val textView: TextView = root.findViewById(R.id.text_gallery)
         appointmentsViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root
     }
+
+    fun createConsult(){
+
+    }
+    fun selectDoctors(){
+
+    }
+    fun selectSymptoms(){
+
+    }
+    fun verifyDateHour(){
+
+    }
+    fun selectDateHour(){
+
+    }
+
 }

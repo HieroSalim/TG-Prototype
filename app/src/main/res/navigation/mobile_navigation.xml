@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/nav_appointments"
-        android:name="com.example.domicilio.view.ui.appointments.AppointmensFragment"
+        android:name="com.example.domicilio.view.ui.appointments.AllAppointmensFragment"
         android:label="@string/menu_appointments"
-        tools:layout="@layout/fragment_consult" />
+        tools:layout="@layout/fragment_all_appointments" />
 
     <fragment
         android:id="@+id/nav_chat"
         android:name="com.example.domicilio.view.ui.chat.ChatFragment"
         android:label="@string/menu_chat"
-        tools:layout="@layout/fragment_config" />
+        tools:layout="@layout/fragment_chat" />
 </navigation>

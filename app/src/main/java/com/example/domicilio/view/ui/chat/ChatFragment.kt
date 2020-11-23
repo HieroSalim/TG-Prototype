@@ -21,11 +21,26 @@ class ChatFragment : Fragment() {
     ): View? {
         chatViewModel =
                 ViewModelProvider(this).get(ChatViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_config, container, false)
-        val textView: TextView = root.findViewById(R.id.text_slideshow)
+        val root = inflater.inflate(R.layout.fragment_chat, container, false)
+        val textView: TextView = root.findViewById(R.id.text_chat)
         chatViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root
+    }
+    fun senderMessage(){
+
+    }
+    fun readMessage(){
+
+    }
+    fun deleteMessage(){
+
+    }
+    fun deleteChat(){
+
+    }
+    fun listChats(){
+
     }
 }

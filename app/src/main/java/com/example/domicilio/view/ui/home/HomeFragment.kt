@@ -28,4 +28,18 @@ class HomeFragment : Fragment() {
         })
         return root
     }
+
+    fun verifyStatusAccount(){
+
+    }
+    fun showWay(){
+
+    }
+    fun initiateConsult(){
+
+    }
+    fun finishConsult(){
+
+    }
+
 }

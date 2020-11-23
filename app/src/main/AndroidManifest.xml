@@ -9,18 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Domicilio">
-        <activity android:name=".view.RegisterUser"></activity>
+        <activity android:name=".view.ActivityEvalue"></activity>
+        <activity android:name=".view.ActivityProfile" />
+        <activity android:name=".view.ActivityAccountConfig" />
+        <activity android:name=".view.RegisterUser" />
         <activity android:name=".view.ActivityLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".view.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Domicilio.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.Domicilio.NoActionBar" />
     </application>
 
 </manifest>
