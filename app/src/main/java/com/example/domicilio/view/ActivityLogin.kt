@@ -36,7 +36,9 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun signIn(user: String, pass: String){
-        mCtl_User.filter(user, pass)
+        if(mCtl_User.filter(user, pass) != null){
+            startActivity(Intent(this, MainActivity::class.java))
+        }
     }
 
     private fun newAccount(){
