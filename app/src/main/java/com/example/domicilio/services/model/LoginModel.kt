@@ -11,5 +11,5 @@ class LoginModel{
     var pass: String = ""
 
     @SerializedName("typeUser")
-    var typeUser: String = ""
+    var typeUser: String = "User"
 }

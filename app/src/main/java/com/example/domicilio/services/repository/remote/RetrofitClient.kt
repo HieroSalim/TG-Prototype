@@ -9,7 +9,7 @@ class RetrofitClient private constructor() {
     companion object{
 
         private lateinit var retrofit: Retrofit
-        private val baseurl = "localhost:3000/"
+        private val baseurl = "http://192.168.1.4:3000/"
 
         private fun getRetrofitInstance(): Retrofit{
             val httpClient = OkHttpClient.Builder()
