@@ -23,17 +23,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <com.vicmikhailau.maskededittext.MaskedEditText
         android:id="@+id/textCPF"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@color/white"
         android:hint="CPF"
+        android:inputType="number"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cadastroUser" />
+        app:layout_constraintTop_toBottomOf="@id/cadastroUser"
+        app:mask="###.###.###-##"
+        />
 
     <EditText
         android:id="@+id/textName"
@@ -86,7 +89,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textUsername" />
 
-    <EditText
+    <com.vicmikhailau.maskededittext.MaskedEditText
         android:id="@+id/textCell"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -95,6 +98,7 @@
         android:hint="Celular"
         android:inputType="phone"
         android:padding="8dp"
+        app:mask="(##)-#####-####"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textPass" />

@@ -35,12 +35,22 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
         if(v.id == R.id.buttonRegister){
             var type: String = if (checkType.isChecked) "Médico" else "User"
             var CPF: String= textCPF.text.toString()
+            CPF = CPF.replace(".", "")
+            CPF = CPF.replace("-", "")
             var name: String = textName.text.toString()
             var email: String = textEmail.text.toString()
             var user: String = textUsername.text.toString()
             var pass: String = textPass.text.toString()
             var cell: String = textCell.text.toString()
-            mCtl_User.add(CPF,name,email,user,pass, cell,type)
+            if(CPF == "" || name == "" || email == "" || user == "" || pass== "" || cell == ""){
+                Toast.makeText(this, "Por favor, preencha todos os campos.", Toast.LENGTH_LONG).show()
+            }
+            if(verifyCPF(CPF) == false){
+                Toast.makeText(this, "CPF inválido.", Toast.LENGTH_LONG).show()
+            }
+            else{
+                mCtl_User.add(CPF,name,email,user,pass, cell,type)
+            }
         }
     }
 
