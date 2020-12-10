@@ -12,4 +12,7 @@ class LoginModel{
 
     @SerializedName("typeUser")
     var typeUser: String = "User"
+
+    @SerializedName("CPF")
+    var CPF: String = ""
 }

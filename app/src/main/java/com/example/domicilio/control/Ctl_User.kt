@@ -3,11 +3,11 @@ package com.example.domicilio.control
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.domicilio.services.listener.APIListener
+import com.example.domicilio.services.listener.APIListenerUser
 import com.example.domicilio.services.listener.ValidationListener
-import com.example.domicilio.services.model.Login
 import com.example.domicilio.services.model.LoginModel
+import com.example.domicilio.services.model.UserModel
 import com.example.domicilio.services.repository.UserRepository
-import java.io.Console
 
 
 class Ctl_User{
@@ -16,8 +16,20 @@ class Ctl_User{
     private val mLogin = MutableLiveData<ValidationListener>()
     var login: LiveData<ValidationListener> = mLogin
 
-    fun add(){
+    private val mUser = MutableLiveData<ValidationListener>()
+    var user: LiveData<ValidationListener> = mUser
 
+    fun add(CPF: String,name: String, email:String, user: String, pass: String, cell: String, typeUser: String){
+        mUserRepository.add(CPF, name, email, user, pass, cell, typeUser, object : APIListenerUser{
+            override fun onSuccess(model: UserModel) {
+                mUser.value = ValidationListener()
+            }
+
+            override fun onFailure(str: String) {
+                mUser.value = ValidationListener(str)
+            }
+
+        })
     }
     fun disable(){
 

@@ -1,18 +1,59 @@
 package com.example.domicilio.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import com.example.domicilio.R
+import com.example.domicilio.control.Ctl_User
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_register_user.*
 import java.util.*
 
-class RegisterUser : AppCompatActivity() {
+class RegisterUser : AppCompatActivity(), View.OnClickListener {
+
+    private val mCtl_User: Ctl_User = Ctl_User()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_user)
-    }
-    fun saveUser(){
 
+        if(supportActionBar !=null){
+            supportActionBar!!.hide()
+        }
+
+        //Inicializa os Eventos
+        setListeners()
+        observe()
     }
+    private fun setListeners(){
+        buttonRegister.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View) {
+        if(v.id == R.id.buttonRegister){
+            var type: String = if (checkType.isChecked) "Médico" else "User"
+            var CPF: String= textCPF.text.toString()
+            var name: String = textName.text.toString()
+            var email: String = textEmail.text.toString()
+            var user: String = textUsername.text.toString()
+            var pass: String = textPass.text.toString()
+            var cell: String = textCell.text.toString()
+            mCtl_User.add(CPF,name,email,user,pass, cell,type)
+        }
+    }
+
+    private fun observe(){
+        mCtl_User.user.observe(this, androidx.lifecycle.Observer {
+            if(it.success()){
+                startActivity(Intent(this, ActivityLogin::class.java))
+            }else{
+                Toast.makeText(this, "Erro no Cadastro", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
     fun verifyCPF(CPF: String): Boolean{
         if (CPF == "00000000000" || CPF == "11111111111" || CPF == "22222222222" || CPF == "33333333333" || CPF == "44444444444" || CPF == "55555555555" || CPF == "66666666666" || CPF == "77777777777" || CPF == "88888888888" || CPF == "99999999999" ||
             CPF.length != 11
