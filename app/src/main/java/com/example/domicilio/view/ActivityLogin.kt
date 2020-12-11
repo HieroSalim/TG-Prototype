@@ -37,14 +37,16 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         if(v.id == R.id.buttonLogin){
-            signIn(textUser.text.toString(), textSenha.text.toString())
+            var user: String =  textUser.text.toString()
+            var pass: String = textSenha.text.toString()
+            if(user == "" || pass == ""){
+                Toast.makeText(this, "Nome do Usuário e Senha devem ser preenchidos", Toast.LENGTH_LONG).show()
+            }else {
+                mCtl_User.doLogin(user,pass)
+            }
         }else if(v.id == R.id.cadastreSe){
             startActivity(Intent(this, RegisterUser::class.java))
         }
-    }
-
-    private fun signIn(user: String, pass: String){
-        mCtl_User.doLogin(user,pass)
     }
 
     private fun observe(){
