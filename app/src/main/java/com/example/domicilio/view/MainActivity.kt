@@ -1,7 +1,9 @@
 package com.example.domicilio.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -15,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.domicilio.R
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -50,5 +52,10 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onClick(v: View) {
+        if(v.id == R.id.nav_chat)
+            startActivity(Intent(this, ChatMainActivity::class.java))
     }
 }

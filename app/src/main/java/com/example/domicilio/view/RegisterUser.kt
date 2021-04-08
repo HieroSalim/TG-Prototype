@@ -7,6 +7,10 @@ import android.view.View
 import android.widget.Toast
 import com.example.domicilio.R
 import com.example.domicilio.control.Ctl_User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register_user.*
 import java.util.*
@@ -15,9 +19,16 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
 
     private val mCtl_User: Ctl_User = Ctl_User()
 
+    //Chat
+    lateinit var firebaseAuth: FirebaseAuth
+    lateinit var databaseReference: DatabaseReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_user)
+
+        //Chat
+        firebaseAuth = FirebaseAuth.getInstance()
 
         if(supportActionBar !=null){
             supportActionBar!!.hide()
@@ -58,6 +69,7 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
         mCtl_User.user.observe(this, androidx.lifecycle.Observer {
             if(it.success()){
                 startActivity(Intent(this, ActivityLogin::class.java))
+                
             }else{
                 Toast.makeText(this, "Erro no Cadastro", Toast.LENGTH_SHORT).show()
             }
@@ -110,5 +122,31 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
 
     fun editUser(){
 
+    }
+
+    fun firebaseSignUp(user: String, email: String, pass: String ){
+        firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this) {task ->
+                    if(task.isSuccessful){
+                        val firebaseUser: FirebaseUser = firebaseAuth.currentUser!!
+                        val userid = firebaseUser.uid
+
+                        databaseReference = FirebaseDatabase.getInstance().getReference("Users")
+                                .child(userid)
+                        val hashmap : HashMap<String, String> = HashMap<String, String> ()
+                        hashmap["id"] = userid
+                        hashmap["username"] = user
+                        hashmap["imageURL"] = "default"
+
+                        databaseReference.setValue(hashmap).addOnCompleteListener(this) {task ->
+                            if(task.isSuccessful){
+                                
+                            }
+                        }
+                    }
+                    else{
+                        Toast.makeText(baseContext, "O registro falhou.",
+                                Toast.LENGTH_SHORT).show()
+                    }
+        }
     }
 }
