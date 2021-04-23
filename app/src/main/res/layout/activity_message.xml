@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context="view.MessageActivity">
+
+  <com.google.android.material.appbar.AppBarLayout
+      android:id="@+id/bar_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      >
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Principal"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/MenuStyle">
+
+      <de.hdodenhof.circleimageview.CircleImageView
+          android:id="@+id/profile_image"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          />
+      <TextView
+          android:id="@+id/username"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="25dp"
+          android:text="Username"
+          android:textColor="#fff"
+          android:textStyle="bold"
+          />
+    </androidx.appcompat.widget.Toolbar>
+
+  </com.google.android.material.appbar.AppBarLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/recycler_view"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toTopOf="@id/constraint"
+      />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/constraint"
+      android:layout_width="match_parent"
+      android:padding="5dp"
+      android:layout_height="wrap_content"
+      android:background="@color/white"
+      app:layout_constraintBottom_toBottomOf="parent"
+      >
+
+    <EditText
+        android:id="@+id/text_send"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toLeftOf="@id/button_send"
+        android:background="@android:color/transparent"
+        android:hint="Digite uma mensagem " />
+
+    <ImageButton
+        android:id="@+id/button_send"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toRightOf="@id/text_send"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/ic_action_name"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

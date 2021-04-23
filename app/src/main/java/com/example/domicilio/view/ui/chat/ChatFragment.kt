@@ -4,43 +4,81 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.domicilio.R
+import com.example.domicilio.control.Ctl_UserChat
+import com.example.domicilio.services.model.ChatListModel
+import com.example.domicilio.services.model.UserChatModel
+import com.example.domicilio.services.model.UserModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 
 class ChatFragment : Fragment() {
 
-    private lateinit var chatViewModel: ChatViewModel
+    lateinit var recyclerView: RecyclerView
+    lateinit var ctlUserChat: Ctl_UserChat
+    lateinit var mUsers: MutableList<UserChatModel>
+    lateinit var reference: DatabaseReference
+    lateinit var usersList: MutableList<ChatListModel>
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        chatViewModel =
-                ViewModelProvider(this).get(ChatViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_chat, container, false)
-        val textView: TextView = root.findViewById(R.id.text_chat)
-        chatViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+        val view: View = inflater.inflate(R.layout.fragment_chat, container, false)
+
+        recyclerView = view.findViewById(R.id.recycler_view)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
+        var fuser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+
+        usersList = mutableListOf()
+
+        reference =  FirebaseDatabase.getInstance().getReference("Chatlist").child(fuser!!.uid)
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                usersList.clear()
+                for(snapshot in snapshot.children){
+                    val chatListModel: ChatListModel? = snapshot.getValue(ChatListModel::class.java)
+                    chatListModel?.let { usersList.add(it) }
+                }
+
+                chatList()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
         })
-        return root
+        return view
     }
-    fun senderMessage(){
 
-    }
-    fun readMessage(){
+    private fun chatList() {
+        mUsers = mutableListOf()
+        reference = FirebaseDatabase.getInstance().getReference("Users")
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                mUsers.clear()
+                for(snapshot in snapshot.children){
+                    val userChatModel: UserChatModel? = snapshot.getValue(UserChatModel ::class.java)
 
-    }
-    fun deleteMessage(){
+                    for(chatListModel: ChatListModel in usersList){
+                        if(userChatModel!!.id == chatListModel.id){
+                            mUsers.add(userChatModel)
+                        }
+                    }
+                }
+                ctlUserChat = Ctl_UserChat(context!!, mUsers, ischat = true)
+                recyclerView.adapter = ctlUserChat
+            }
 
-    }
-    fun deleteChat(){
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
 
-    }
-    fun listChats(){
-
+        })
     }
 }

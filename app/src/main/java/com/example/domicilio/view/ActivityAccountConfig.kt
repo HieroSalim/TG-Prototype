@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.domicilio.R
 import com.example.domicilio.control.Ctl_User
 import kotlinx.android.synthetic.main.activity_account_config.*
+import kotlinx.android.synthetic.main.activity_account_config.toolbar
 import kotlinx.android.synthetic.main.activity_account_config.view.*
+import kotlinx.android.synthetic.main.bar_layout.*
 
 
 class ActivityAccountConfig : AppCompatActivity(), View.OnClickListener {
@@ -16,11 +18,10 @@ class ActivityAccountConfig : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account_config)
-
-
-        if(supportActionBar !=null){
-            supportActionBar!!.hide()
-        }
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = "Editar informações de perfil"
+        supportActionBar?.displayOptions
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val parent = findViewById<View>(R.id.parent)
 
