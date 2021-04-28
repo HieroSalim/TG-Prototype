@@ -1,4 +1,4 @@
-package com.example.domicilio.services.repository.remote
+package com.example.domicilio.services.repository
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

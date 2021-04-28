@@ -7,7 +7,6 @@ import com.example.domicilio.services.listener.APIListenerUser
 import com.example.domicilio.services.listener.ValidationListener
 import com.example.domicilio.services.model.LoginModel
 import com.example.domicilio.services.model.UserModel
-import com.example.domicilio.services.repository.UserRepository
 
 
 class Ctl_User{

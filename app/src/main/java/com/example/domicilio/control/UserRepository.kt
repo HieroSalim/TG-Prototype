@@ -1,11 +1,11 @@
-package com.example.domicilio.services.repository
+package com.example.domicilio.control
 
 import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.listener.APIListenerUser
 import com.example.domicilio.services.model.LoginModel
 import com.example.domicilio.services.model.UserModel
-import com.example.domicilio.services.repository.remote.RetrofitClient
-import com.example.domicilio.services.repository.remote.UserService
+import com.example.domicilio.services.repository.RetrofitClient
+import com.example.domicilio.services.repository.UserService
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,7 +30,7 @@ class UserRepository {
             }
 
             override fun onFailure(call: Call<LoginModel>, t: Throwable) {
-                listener.onFailure("Ocorre um erro inesperado. Tente novamente mais tarde.")
+                listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
             }
 
         })

@@ -12,20 +12,14 @@ import com.example.domicilio.R
 
 class AllAppointmensFragment : Fragment() {
 
-    private lateinit var appointmentsViewModel: AppointmentsViewModel
-
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        appointmentsViewModel =
-                ViewModelProvider(this).get(AppointmentsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_all_appointments, container, false)
         val textView: TextView = root.findViewById(R.id.text_gallery)
-        appointmentsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        textView.text = "Listagem de Agendamentos"
         return root
     }
 
