@@ -10,7 +10,6 @@ class ActivityProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        setSupportActionBar(toolbar)
         supportActionBar?.title = "Perfil"
         supportActionBar?.displayOptions
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

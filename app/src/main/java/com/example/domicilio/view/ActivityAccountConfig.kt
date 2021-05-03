@@ -18,7 +18,6 @@ class ActivityAccountConfig : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account_config)
-        setSupportActionBar(toolbar)
         supportActionBar?.title = "Editar informações de perfil"
         supportActionBar?.displayOptions
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

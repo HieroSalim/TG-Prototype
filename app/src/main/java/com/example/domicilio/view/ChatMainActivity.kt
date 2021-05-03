@@ -28,7 +28,6 @@ class ChatMainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_chat_main)
-        setSupportActionBar(toolbar)
         var mFirebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
         var mDatabaseReference: DatabaseReference? =
             mFirebaseUser?.let {
