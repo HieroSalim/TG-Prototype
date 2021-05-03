@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class ActivityLogin : AppCompatActivity(), View.OnClickListener {
 
-    private var mCtl_User: Ctl_User = Ctl_User()
     private var mUserRepository: UserRepository = UserRepository()
 
     //Chat
@@ -34,7 +33,6 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
         }
 
         // Inicializa eventos
-        observe()
         setListeners()
         firebaseAuth = FirebaseAuth.getInstance()
     }
@@ -46,16 +44,6 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         if(v.id == R.id.buttonLogin){
-            mUserRepository.login(textUser.text.toString(),textSenha.text.toString(), object : APIListener{
-                override fun onSuccess(model: LoginModel) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onFailure(str: String) {
-                    TODO("Not yet implemented")
-                }
-
-            })
 /*
             var user: String =  textUser.text.toString()
             var pass: String = textSenha.text.toString()
@@ -65,25 +53,22 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
                 mCtl_User.doLogin(user,pass)
             }
 */
-            //signIn(textUser.text.toString(), textSenha.text.toString())
+            signIn(textUser.text.toString(), textSenha.text.toString())
             //firebaseSignIn(textEmailFirebase.text.toString(), textSenha.text.toString())
-            startActivity(Intent(this, MainActivity::class.java))
         }else if(v.id == R.id.cadastreSe){
             startActivity(Intent(this, RegisterUser::class.java))
         }
     }
     private fun signIn(user: String, pass: String){
-        mCtl_User.doLogin(user,pass)
-    }
-
-    private fun observe(){
-        mCtl_User.login.observe(this, Observer {
-            if(it.success()){
-                startActivity(Intent(this, MainActivity::class.java))
-            }else{
-                val message = it.failure()
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        mUserRepository.login(user,pass, object : APIListener{
+            override fun onSuccess(model: LoginModel) {
+                startActivity(Intent(this@ActivityLogin, MainActivity::class.java))
             }
+
+            override fun onFailure(str: String) {
+                Toast.makeText(this@ActivityLogin, str, Toast.LENGTH_SHORT).show()
+            }
+
         })
     }
 
