@@ -5,21 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import com.example.domicilio.R
-import com.example.domicilio.control.Ctl_User
 import com.example.domicilio.control.UserRepository
 import com.example.domicilio.services.listener.APIListener
-import com.example.domicilio.services.listener.APIListenerUser
-import com.example.domicilio.services.listener.ValidationListener
 import com.example.domicilio.services.model.LoginModel
-import com.example.domicilio.services.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
 class ActivityLogin : AppCompatActivity(), View.OnClickListener {
 
-    private var mUserRepository: UserRepository = UserRepository()
+    private val mUserRepository: UserRepository = UserRepository()
 
     //Chat
     lateinit var firebaseAuth: FirebaseAuth
@@ -44,32 +39,30 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         if(v.id == R.id.buttonLogin){
-/*
-            var user: String =  textUser.text.toString()
-            var pass: String = textSenha.text.toString()
-            if(user == "" || pass == ""){
-                Toast.makeText(this, "Nome do Usuário e Senha devem ser preenchidos", Toast.LENGTH_LONG).show()
-            }else {
-                mCtl_User.doLogin(user,pass)
-            }
-*/
-            signIn(textUser.text.toString(), textSenha.text.toString())
-            //firebaseSignIn(textEmailFirebase.text.toString(), textSenha.text.toString())
+            signIn()
         }else if(v.id == R.id.cadastreSe){
             startActivity(Intent(this, RegisterUser::class.java))
         }
     }
-    private fun signIn(user: String, pass: String){
-        mUserRepository.login(user,pass, object : APIListener{
-            override fun onSuccess(model: LoginModel) {
-                startActivity(Intent(this@ActivityLogin, MainActivity::class.java))
-            }
+    private fun signIn(){
+        var login: String =  textUser.text.toString()
+        var pass: String = textSenha.text.toString()
+        if(login == "" || pass == ""){
+            Toast.makeText(this, "Nome do Usuário e Senha devem ser preenchidos", Toast.LENGTH_LONG).show()
+        }else {
+            mUserRepository.login(login,pass, object : APIListener{
+                override fun onSuccess(model: LoginModel) {
+                    firebaseSignIn(textEmailFirebase.text.toString(), textSenha.text.toString())
+                    startActivity(Intent(this@ActivityLogin, MainActivity::class.java))
+                    finish()
+                }
 
-            override fun onFailure(str: String) {
-                Toast.makeText(this@ActivityLogin, str, Toast.LENGTH_SHORT).show()
-            }
+                override fun onFailure(str: String) {
+                    Toast.makeText(this@ActivityLogin, str, Toast.LENGTH_SHORT).show()
+                }
 
-        })
+            })
+        }
     }
 
     private fun newAccount(){

@@ -9,10 +9,10 @@ import retrofit2.http.POST
 
 interface UserService {
 
-    @POST("user/Authentication")
+    @POST("authentication")
     @FormUrlEncoded
     fun login(
-            @Field("user") user: String,
+            @Field("login") login: String,
             @Field("pass") pass: String
     ): Call<LoginModel>
 

@@ -4,15 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 class LoginModel{
 
-    @SerializedName("user")
-    var user: String = ""
+    @SerializedName("auth")
+    var auth: Boolean = false
 
-    @SerializedName("pass")
-    var pass: String = ""
-
-    @SerializedName("typeUser")
-    var typeUser: String = "User"
-
-    @SerializedName("CPF")
-    var CPF: String = ""
+    @SerializedName("token")
+    var token: String = ""
 }

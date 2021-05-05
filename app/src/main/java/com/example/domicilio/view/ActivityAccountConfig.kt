@@ -2,10 +2,8 @@ package com.example.domicilio.view
 
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.domicilio.R
-import com.example.domicilio.control.Ctl_User
 import kotlinx.android.synthetic.main.activity_account_config.*
 import kotlinx.android.synthetic.main.activity_account_config.toolbar
 import kotlinx.android.synthetic.main.activity_account_config.view.*

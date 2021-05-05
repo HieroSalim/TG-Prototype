@@ -16,14 +16,14 @@ class UserRepository {
 
     private val mRemote = RetrofitClient.createService(UserService::class.java)
 
-    fun login(user: String, pass: String, listener: APIListener) {
-        val call: Call<LoginModel> = mRemote.login(user, pass)
+    fun login(login: String, pass: String, listener: APIListener) {
+        val call: Call<LoginModel> = mRemote.login(login, pass)
         //Assíncrona
         call.enqueue(object : Callback<LoginModel> {
             override fun onResponse(call: Call<LoginModel>, response: Response<LoginModel>) {
-                if (response.code() != 201) {
+                if (response.code() != 202) {
                     val jObjError = JSONObject(response.errorBody()!!.string())
-                    listener.onFailure(jObjError.getString("menssagem"))
+                    listener.onFailure(jObjError.getString("mensagem"))
                 } else {
                     response.body()?.let { listener.onSuccess(it) }
                 }
@@ -53,5 +53,18 @@ class UserRepository {
                 listener.onFailure("Ocorre um erro inesperado. Tente novamente mais tarde.")
             }
         })
+    }
+
+    fun listDoctor(){
+
+    }
+    fun setEvalue(){
+
+    }
+    fun EvalueAtt(){
+
+    }
+    fun getTypeUser(){
+
     }
 }

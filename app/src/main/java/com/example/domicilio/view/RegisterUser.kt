@@ -6,18 +6,19 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.example.domicilio.R
-import com.example.domicilio.control.Ctl_User
+import com.example.domicilio.control.UserRepository
+import com.example.domicilio.services.listener.APIListenerUser
+import com.example.domicilio.services.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register_user.*
 import java.util.*
 
 class RegisterUser : AppCompatActivity(), View.OnClickListener {
 
-    private val mCtl_User: Ctl_User = Ctl_User()
+    private val mUserRepository = UserRepository()
 
     //Chat
     lateinit var firebaseAuth: FirebaseAuth
@@ -36,7 +37,6 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
 
         //Inicializa os Eventos
         setListeners()
-        observe()
     }
     private fun setListeners(){
         buttonRegister.setOnClickListener(this)
@@ -60,20 +60,18 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(this, "CPF inválido.", Toast.LENGTH_LONG).show()
             }
             else{
-                mCtl_User.add(CPF,name,email,user,pass, cell,type)
+                mUserRepository.add(CPF,name,email,user,pass, cell,type, object : APIListenerUser{
+                    override fun onSuccess(model: UserModel) {
+                        firebaseSignUp(user,email,pass)
+                    }
+
+                    override fun onFailure(str: String) {
+                        Toast.makeText(this@RegisterUser, "Erro no Cadastro", Toast.LENGTH_SHORT).show()
+                    }
+
+                })
             }
         }
-    }
-
-    private fun observe(){
-        mCtl_User.user.observe(this, androidx.lifecycle.Observer {
-            if(it.success()){
-                startActivity(Intent(this, ActivityLogin::class.java))
-                
-            }else{
-                Toast.makeText(this, "Erro no Cadastro", Toast.LENGTH_SHORT).show()
-            }
-        })
     }
 
     fun verifyCPF(CPF: String): Boolean{
@@ -139,7 +137,8 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
 
                         databaseReference.setValue(hashmap).addOnCompleteListener(this) {task ->
                             if(task.isSuccessful){
-                                
+                                startActivity(Intent(this@RegisterUser, ActivityLogin::class.java))
+                                finish()
                             }
                         }
                     }
