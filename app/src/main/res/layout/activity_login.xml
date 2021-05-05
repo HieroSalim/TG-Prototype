@@ -4,10 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal_200"
-    android:padding="16dp"
+    android:background="@color/white"
     tools:context=".view.ActivityLogin">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/teal_300"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/MenuStyle"
+        >
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintLeft_toLeftOf="@id/toolbar"
+        android:text="Entrar"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_marginLeft="16dp"
+        />
     <TextView
         android:id="@+id/logoName"
         android:layout_width="0dp"
@@ -28,10 +51,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/white"
         android:hint="Nome do Usuário"
         android:inputType="text"
         android:padding="8dp"
+        android:layout_margin="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logoName" />
@@ -41,10 +64,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/white"
         android:hint="Email"
         android:inputType="text"
         android:padding="8dp"
+        android:layout_margin="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textUser"/>
@@ -55,10 +78,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textUser"
         android:layout_marginTop="16dp"
-        android:background="#fff"
         android:hint="Senha"
         android:inputType="textPassword"
         android:padding="8dp"
+        android:layout_margin="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textEmailFirebase" />
@@ -69,8 +92,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textSenha"
         android:layout_marginTop="32dp"
+        android:layout_margin="16dp"
         android:text="@string/bt_entrar"
         android:textColor="@color/white"
+        android:background="@drawable/button_border"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textSenha" />
