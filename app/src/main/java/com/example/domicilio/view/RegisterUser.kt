@@ -60,10 +60,18 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(this, "CPF inválido.", Toast.LENGTH_LONG).show()
             }
             else{
+<<<<<<< Updated upstream
                 mUserRepository.add(CPF,name,email,user,pass, cell,type, object : APIListenerUser{
                     override fun onSuccess(model: UserModel) {
                         firebaseSignUp(user,email,pass)
                     }
+=======
+                mCtl_User.add(CPF,name,email,user,pass, cell,type)
+                firebaseSignUp(user, email, pass)
+            }
+        }
+    }
+>>>>>>> Stashed changes
 
                     override fun onFailure(str: String) {
                         Toast.makeText(this@RegisterUser, "Erro no Cadastro", Toast.LENGTH_SHORT).show()

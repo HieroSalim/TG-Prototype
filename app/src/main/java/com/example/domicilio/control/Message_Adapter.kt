@@ -13,7 +13,7 @@ import com.example.domicilio.services.model.ChatModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
-class Ctl_Message: RecyclerView.Adapter<Ctl_Message.ViewHolder>{
+class Message_Adapter: RecyclerView.Adapter<Message_Adapter.ViewHolder>{
     var mContext: Context
     var mChat: MutableList<ChatModel>
     private val MSG_TYPE_LEFT = 0

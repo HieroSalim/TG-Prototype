@@ -15,9 +15,8 @@ import com.example.domicilio.view.MessageActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import org.w3c.dom.Text
 
-class Ctl_UserChat: RecyclerView.Adapter<Ctl_UserChat.ViewHolder>{
+class UserChat_Adapter: RecyclerView.Adapter<UserChat_Adapter.ViewHolder>{
     var mContext: Context
     var mUsers: MutableList<UserChatModel>
     var ischat: Boolean
@@ -41,7 +40,7 @@ class Ctl_UserChat: RecyclerView.Adapter<Ctl_UserChat.ViewHolder>{
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(mContext).inflate(R.layout.user_item, parent, false)
-        return Ctl_UserChat.ViewHolder(view)
+        return UserChat_Adapter.ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
