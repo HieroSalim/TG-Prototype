@@ -21,8 +21,8 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
     private val mUserRepository = UserRepository()
 
     //Chat
-    lateinit var firebaseAuth: FirebaseAuth
-    lateinit var databaseReference: DatabaseReference
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var databaseReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,15 +44,15 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         if(v.id == R.id.buttonRegister){
-            var type: String = if (checkType.isChecked) "Médico" else "User"
+            val type: String = if (checkType.isChecked) "Médico" else "User"
             var CPF: String= textCPF.text.toString()
             CPF = CPF.replace(".", "")
             CPF = CPF.replace("-", "")
-            var name: String = textName.text.toString()
-            var email: String = textEmail.text.toString()
-            var user: String = textUsername.text.toString()
-            var pass: String = textPass.text.toString()
-            var cell: String = textCell.text.toString()
+            val name: String = textName.text.toString()
+            val email: String = textEmail.text.toString()
+            val user: String = textUsername.text.toString()
+            val pass: String = textPass.text.toString()
+            val cell: String = textCell.text.toString()
             if(CPF == "" || name == "" || email == "" || user == "" || pass== "" || cell == ""){
                 Toast.makeText(this, "Por favor, preencha todos os campos.", Toast.LENGTH_LONG).show()
             }
@@ -62,18 +62,16 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
             else{
                 mUserRepository.add(CPF,name,email,user,pass, cell,type, object : APIListenerUser{
                     override fun onSuccess(model: UserModel) {
+                        this@RegisterUser.firebaseSignUp(user,email,pass)
                         startActivity(Intent(this@RegisterUser, ActivityLogin::class.java))
                         finish()
-                        //firebaseSignUp(user,email,pass)
                     }
-
                     override fun onFailure(str: String) {
                         Toast.makeText(this@RegisterUser, "Erro no Cadastro", Toast.LENGTH_SHORT).show()
                     }
-
                 })
-            }
         }
+    }
     }
 
     fun verifyCPF(CPF: String): Boolean{
@@ -143,7 +141,7 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
                         }
                     }
                     else{
-                        Toast.makeText(baseContext, "O registro falhou.",
+                        Toast.makeText(baseContext, "O registro no firebase falhou.",
                                 Toast.LENGTH_SHORT).show()
                     }
         }

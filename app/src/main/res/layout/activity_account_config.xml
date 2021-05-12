@@ -19,28 +19,28 @@
         app:popupTheme="@style/MenuStyle">
     </androidx.appcompat.widget.Toolbar>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="Conta"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_marginLeft="16dp"
+        />
 
     <ImageView
         android:id="@+id/user_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginTop="70dp"
         android:src="@drawable/ic_baseline_person_24"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-    <TextView
-        android:id="@+id/userNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Nome:"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_image" />
 
     <EditText
         android:id="@+id/user_name_edit"
@@ -48,110 +48,76 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:imeOptions="actionDone"
-        android:text="-"
-        android:textAlignment="center"
+        android:text="Nome"
+        android:background="@drawable/edit_text_border"
+        android:padding="6dp"
+        android:layout_margin="16dp"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:padding="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userNameLabel" />
+        app:layout_constraintTop_toBottomOf="@id/user_image" />
 
-    <TextView
-        android:id="@+id/userPhoneLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Número:"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_name_edit" />
 
     <EditText
         android:id="@+id/user_phone_edit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:imeOptions="actionDone"
-        android:text="-"
+        android:text="Telefone"
         android:inputType="phone"
-        android:textAlignment="center"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:padding="16dp"
+        android:background="@drawable/edit_text_border"
+        android:padding="6dp"
+        android:layout_margin="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userPhoneLabel" />
+        app:layout_constraintTop_toBottomOf="@id/user_name_edit" />
 
-    <TextView
-        android:id="@+id/userAddressLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Endereço:"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_phone_edit" />
+
 
     <EditText
         android:id="@+id/user_address_edit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:imeOptions="actionDone"
-        android:text="-"
-        android:textAlignment="center"
-        android:padding="16dp"
+        android:text="Endereço"
+        android:background="@drawable/edit_text_border"
+        android:padding="6dp"
+        android:layout_margin="16dp"
         android:textSize="18sp"
-        android:textStyle="bold"
+
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userAddressLabel" />
+        app:layout_constraintTop_toBottomOf="@id/user_phone_edit" />
 
 
-    <TextView
-        android:id="@+id/user_cpf_label"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/user_email_edit"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="CPF:"
-        android:textAlignment="center"
+        android:layout_marginTop="32dp"
+        android:imeOptions="actionDone"
+        android:text="Email"
         android:textSize="18sp"
-        android:textStyle="bold"
+        android:background="@drawable/edit_text_border"
+        android:padding="6dp"
+        android:layout_margin="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/user_address_edit" />
 
-    <EditText
-        android:id="@+id/user_cpf_edit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:imeOptions="actionDone"
-        android:text="-"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:padding="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_cpf_label" />
-
     <Button
         android:id="@+id/update_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Atualizar"
+        android:layout_margin="16dp"
+        android:background="@drawable/button_border"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_cpf_edit"/>
+       app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

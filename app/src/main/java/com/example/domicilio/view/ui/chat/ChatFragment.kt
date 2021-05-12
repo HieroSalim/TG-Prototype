@@ -8,10 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domicilio.R
-import com.example.domicilio.control.Ctl_UserChat
+import com.example.domicilio.control.UserChat_Adapter
 import com.example.domicilio.services.model.ChatListModel
 import com.example.domicilio.services.model.UserChatModel
-import com.example.domicilio.services.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -19,7 +18,7 @@ import com.google.firebase.database.*
 class ChatFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
-    lateinit var ctlUserChat: Ctl_UserChat
+    lateinit var userChatAdapter: UserChat_Adapter
     lateinit var mUsers: MutableList<UserChatModel>
     lateinit var reference: DatabaseReference
     lateinit var usersList: MutableList<ChatListModel>
@@ -71,8 +70,8 @@ class ChatFragment : Fragment() {
                         }
                     }
                 }
-                ctlUserChat = Ctl_UserChat(context!!, mUsers, ischat = true)
-                recyclerView.adapter = ctlUserChat
+                userChatAdapter = UserChat_Adapter(context!!, mUsers, ischat = true)
+                recyclerView.adapter = userChatAdapter
             }
 
             override fun onCancelled(error: DatabaseError) {

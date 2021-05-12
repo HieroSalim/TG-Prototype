@@ -5,27 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.ActivityEvalue"
-    android:background="@color/teal_200">
+    android:background="@color/white">
 
-    <View
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/teal_300"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/MenuStyle"
+        >
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/evalue_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/user_icon"
-        android:background="@color/white"
+        app:layout_constraintLeft_toLeftOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        android:text="Avalie o atendimento"
+        android:textSize="18sp"
+        android:layout_marginLeft="16dp"
+        android:textColor="@color/white"
         />
-
-<TextView
-    android:id="@+id/evalue_text"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    android:text="Avalie o atendimento"
-    android:textSize="18sp"
-    />
 
     <ImageView
         android:layout_marginTop="20dp"
@@ -36,7 +42,7 @@
         android:src="@drawable/ic_baseline_person_24"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/evalue_text"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toTopOf="@+id/doctor_name"
         />
 
@@ -55,10 +61,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_icon"
         app:layout_constraintBottom_toTopOf="@+id/function"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:text="Nome do médico"
+        />
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintTop_toBottomOf="@id/doctor_name"
         />
 
     <TextView
@@ -66,10 +81,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/doctor_name"
         app:layout_constraintBottom_toTopOf="@id/rating_text"
-        android:textSize="16sp"
+        android:paddingTop="16dp"
+        android:textSize="18sp"
         android:text="Função do médico"
+        />
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintTop_toBottomOf="@id/function"
         />
 
     <TextView
@@ -93,12 +118,14 @@
         android:progressBackgroundTint="@color/yellow"
         />
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rating_bar"
+        android:background="@drawable/button_border"
         android:text="Enviar"
+        android:layout_margin="16dp"
         />
 
 

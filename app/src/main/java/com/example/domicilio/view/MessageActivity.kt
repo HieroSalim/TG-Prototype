@@ -10,10 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.domicilio.R
-import com.example.domicilio.control.Ctl_Message
+import com.example.domicilio.control.Message_Adapter
 import com.example.domicilio.services.model.ChatModel
 import com.example.domicilio.services.model.UserChatModel
-import com.example.domicilio.services.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -29,7 +28,7 @@ class MessageActivity : AppCompatActivity() {
     lateinit var reference: DatabaseReference
     lateinit var button_send: ImageButton
 
-    lateinit var ctlMessage: Ctl_Message
+    lateinit var messageAdapter: Message_Adapter
     lateinit var mchat: MutableList<ChatModel>
 
     lateinit var recyclerView: RecyclerView
@@ -171,7 +170,7 @@ class MessageActivity : AppCompatActivity() {
                         chatModel?.receiver.equals(userid) && chatModel?.sender.equals(myid)){
                         chatModel?.let { mchat.add(it) }
                     }
-                    var ctl_Message = Ctl_Message(imageurl, this@MessageActivity, mchat)
+                    var ctl_Message = Message_Adapter(imageurl, this@MessageActivity, mchat)
                     recyclerView.adapter = ctl_Message
                 }
             }
