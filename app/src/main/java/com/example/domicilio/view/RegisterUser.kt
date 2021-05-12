@@ -62,7 +62,9 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
             else{
                 mUserRepository.add(CPF,name,email,user,pass, cell,type, object : APIListenerUser{
                     override fun onSuccess(model: UserModel) {
-                        firebaseSignUp(user,email,pass)
+                        startActivity(Intent(this@RegisterUser, ActivityLogin::class.java))
+                        finish()
+                        //firebaseSignUp(user,email,pass)
                     }
 
                     override fun onFailure(str: String) {
@@ -137,8 +139,6 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
 
                         databaseReference.setValue(hashmap).addOnCompleteListener(this) {task ->
                             if(task.isSuccessful){
-                                startActivity(Intent(this@RegisterUser, ActivityLogin::class.java))
-                                finish()
                             }
                         }
                     }

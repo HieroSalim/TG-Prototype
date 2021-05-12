@@ -52,7 +52,7 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
         }else {
             mUserRepository.login(login,pass, object : APIListener{
                 override fun onSuccess(model: LoginModel) {
-                    firebaseSignIn(textEmailFirebase.text.toString(), textSenha.text.toString())
+                    //firebaseSignIn(textEmailFirebase.text.toString(), textSenha.text.toString())
                     startActivity(Intent(this@ActivityLogin, MainActivity::class.java))
                     finish()
                 }
