@@ -9,12 +9,14 @@ import com.example.domicilio.R
 import com.example.domicilio.control.UserRepository
 import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.model.LoginModel
+import com.example.domicilio.services.repository.local.SecurityPreferences
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
 class ActivityLogin : AppCompatActivity(), View.OnClickListener {
 
     private val mUserRepository: UserRepository = UserRepository()
+    private lateinit var mSecurityPreferences: SecurityPreferences
 
     //Chat
     lateinit var firebaseAuth: FirebaseAuth
@@ -30,6 +32,7 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
         // Inicializa eventos
         setListeners()
         firebaseAuth = FirebaseAuth.getInstance()
+        mSecurityPreferences = SecurityPreferences(this)
     }
 
     private fun setListeners(){
@@ -45,14 +48,15 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
         }
     }
     private fun signIn(){
-        var login: String =  textUser.text.toString()
-        var pass: String = textSenha.text.toString()
+        val login: String =  textUser.text.toString()
+        val pass: String = textSenha.text.toString()
+        val email: String = textEmailFirebase.text.toString()
         if(login == "" || pass == ""){
             Toast.makeText(this, "Nome do Usuário e Senha devem ser preenchidos", Toast.LENGTH_LONG).show()
         }else {
             mUserRepository.login(login,pass, object : APIListener{
                 override fun onSuccess(model: LoginModel) {
-                    //firebaseSignIn(textEmailFirebase.text.toString(), textSenha.text.toString())
+                    this@ActivityLogin.firebaseSignIn(email, pass)
                     startActivity(Intent(this@ActivityLogin, MainActivity::class.java))
                     finish()
                 }

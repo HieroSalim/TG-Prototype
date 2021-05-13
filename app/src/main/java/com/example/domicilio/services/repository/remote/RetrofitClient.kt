@@ -1,4 +1,4 @@
-package com.example.domicilio.services.repository
+package com.example.domicilio.services.repository.remote
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -9,7 +9,7 @@ class RetrofitClient private constructor() {
     companion object{
 
         private lateinit var retrofit: Retrofit
-        private val baseurl = "http://10.0.0.105:3000/"
+        private val baseurl = "http://192.168.1.4:3000/"
 
         private fun getRetrofitInstance(): Retrofit{
             val httpClient = OkHttpClient.Builder()

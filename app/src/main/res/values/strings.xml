@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Doc\'Car</string>
+    <string name="app_name">Mobile Health</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Doc\'Car</string>
+    <string name="nav_header_title">Mobile Health</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Configurações da Conta</string>

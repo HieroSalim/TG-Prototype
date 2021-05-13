@@ -1,4 +1,4 @@
-package com.example.domicilio.services.repository
+package com.example.domicilio.services.repository.remote
 
 import com.example.domicilio.services.model.LoginModel
 import com.example.domicilio.services.model.UserModel
