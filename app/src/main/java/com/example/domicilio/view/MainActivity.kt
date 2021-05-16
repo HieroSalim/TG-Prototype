@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -16,12 +17,16 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.domicilio.R
+import com.example.domicilio.control.UserRepository
+import com.example.domicilio.services.listener.APIListenerUser
+import com.example.domicilio.services.model.UserModel
 import com.example.domicilio.services.repository.local.SecurityPreferences
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var mSecurityPreferences: SecurityPreferences
+    private val mUserRepository : UserRepository = UserRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +36,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         //Inicializando variaveis
         mSecurityPreferences = SecurityPreferences(this)
+        loadUser(mSecurityPreferences.get("token"))
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
-            Snackbar.make(view, mSecurityPreferences.get("token"), Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "Abrir a tela de Agendamento", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -47,6 +53,32 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+    }
+
+    private fun loadUser(token: String){
+        mUserRepository.loadSession(token, object : APIListenerUser {
+            override fun onSuccess(model: UserModel) {
+                mSecurityPreferences.store("user",model.user)
+                mSecurityPreferences.store("typeUser",model.typeUser)
+                mSecurityPreferences.store("email",model.email)
+                mSecurityPreferences.store("name",model.name)
+            }
+
+            override fun onFailure(str: String) {
+                if(str == "Falha na autenticação"){
+                    mSecurityPreferences.remove("token")
+                    mSecurityPreferences.remove("user")
+                    mSecurityPreferences.remove("typeUser")
+                    mSecurityPreferences.remove("email")
+                    mSecurityPreferences.remove("name")
+                    startActivity(Intent(this@MainActivity, ActivityLogin::class.java))
+                    finish()
+                }else{
+                    Toast.makeText(this@MainActivity,str,Toast.LENGTH_LONG).show()
+                }
+            }
+
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

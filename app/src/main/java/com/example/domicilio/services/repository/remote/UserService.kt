@@ -3,9 +3,7 @@ package com.example.domicilio.services.repository.remote
 import com.example.domicilio.services.model.LoginModel
 import com.example.domicilio.services.model.UserModel
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface UserService {
 
@@ -28,4 +26,6 @@ interface UserService {
             @Field("typeUser") typeUser: String
     ): Call<UserModel>
 
+    @GET("authentication/loadsession")
+    fun loadSession(@Header("Authorization") token: String): Call<UserModel>
 }

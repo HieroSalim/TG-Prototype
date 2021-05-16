@@ -60,7 +60,7 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(this, "CPF inválido.", Toast.LENGTH_LONG).show()
             }
             else{
-                mUserRepository.add(CPF,name,email,user,pass, cell,type, object : APIListenerUser{
+                mUserRepository.add(baseContext,this, CPF,name,email,user,pass, cell,type, object : APIListenerUser{
                     override fun onSuccess(model: UserModel) {
                         this@RegisterUser.firebaseSignUp(user,email,pass)
                         startActivity(Intent(this@RegisterUser, ActivityLogin::class.java))

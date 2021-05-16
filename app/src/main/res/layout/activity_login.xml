@@ -51,26 +51,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Nome do Usuário"
-        android:inputType="text"
-        android:padding="8dp"
-        android:layout_margin="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logoName" />
-
-    <EditText
-        android:id="@+id/textEmailFirebase"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:hint="Email"
         android:inputType="text"
         android:padding="8dp"
         android:layout_margin="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textUser"/>
+        app:layout_constraintTop_toBottomOf="@id/logoName" />
 
     <EditText
         android:id="@+id/textSenha"
@@ -84,7 +71,7 @@
         android:layout_margin="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textEmailFirebase" />
+        app:layout_constraintTop_toBottomOf="@id/textUser" />
 
     <Button
         android:id="@+id/buttonLogin"
@@ -107,7 +94,8 @@
         android:layout_below="@+id/buttonLogin"
         android:layout_marginTop="34dp"
         android:text="Ainda não é cadastrado? Cadastre-se!"
-        android:textColor="@color/white"
+        android:textColor="@color/teal_300"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonLogin" />

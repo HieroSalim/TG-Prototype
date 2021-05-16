@@ -10,7 +10,6 @@ import com.example.domicilio.control.UserRepository
 import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.model.LoginModel
 import com.example.domicilio.services.repository.local.SecurityPreferences
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
 class ActivityLogin : AppCompatActivity(), View.OnClickListener {
@@ -18,8 +17,6 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
     private val mUserRepository: UserRepository = UserRepository()
     private lateinit var mSecurityPreferences: SecurityPreferences
 
-    //Chat
-    lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +28,8 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
 
         // Inicializa eventos
         setListeners()
-        firebaseAuth = FirebaseAuth.getInstance()
         mSecurityPreferences = SecurityPreferences(this)
+        verifyData()
     }
 
     private fun setListeners(){
@@ -50,15 +47,12 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
     private fun signIn(){
         val login: String =  textUser.text.toString()
         val pass: String = textSenha.text.toString()
-        val email: String = textEmailFirebase.text.toString()
         if(login == "" || pass == ""){
             Toast.makeText(this, "Nome do Usuário e Senha devem ser preenchidos", Toast.LENGTH_LONG).show()
         }else {
-            mUserRepository.login(login,pass, object : APIListener{
+            mUserRepository.login(baseContext, this, login, pass, object : APIListener{
                 override fun onSuccess(model: LoginModel) {
-                    this@ActivityLogin.firebaseSignIn(email, pass)
-                    startActivity(Intent(this@ActivityLogin, MainActivity::class.java))
-                    finish()
+                    mSecurityPreferences.store("token", model.token)
                 }
 
                 override fun onFailure(str: String) {
@@ -73,26 +67,9 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
 
     }
     private fun verifyData(){
-
-    }
-
-    private fun firebaseSignIn(email: String, pass: String){
-        if(email == null || pass == null ){
-            Toast.makeText(baseContext, "Todos os campos são obrigatórios",
-                Toast.LENGTH_SHORT).show()
-        }
-        else{
-            firebaseAuth.signInWithEmailAndPassword(email, pass)
-                .addOnCompleteListener(this) {task ->
-                    if(task.isSuccessful){
-                        var intent = Intent(this,MainActivity::class.java)
-                        startActivity(intent)
-                    }
-                    else{
-                        Toast.makeText(baseContext, "A autenticação falhou.",
-                            Toast.LENGTH_SHORT).show()
-                    }
-                }
+        if(mSecurityPreferences.get("token") !=  ""){
+            startActivity(Intent(this,MainActivity::class.java))
+            finish()
         }
     }
 }
