@@ -28,14 +28,12 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_user)
-        
+
+        supportActionBar?.title = "Registre-se"
+
 
         //Chat
         firebaseAuth = FirebaseAuth.getInstance()
-
-        if(supportActionBar !=null){
-            supportActionBar!!.hide()
-        }
 
         //Inicializa os Eventos
         setListeners()

@@ -10,6 +10,8 @@ import com.example.domicilio.control.UserRepository
 import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.model.LoginModel
 import com.example.domicilio.services.repository.local.SecurityPreferences
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_login.*
 
 class ActivityLogin : AppCompatActivity(), View.OnClickListener {
@@ -17,6 +19,22 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
     private val mUserRepository: UserRepository = UserRepository()
     private lateinit var mSecurityPreferences: SecurityPreferences
 
+
+    override fun onStart() {
+        //Mantendo sessão no aplicativo
+        super.onStart()
+        var firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+
+        if(mSecurityPreferences.get("token") !=  ""){
+            if(firebaseUser != null){
+                startActivity(Intent(this, MainActivity::class.java))
+                finish();
+            }
+            else{
+                Toast.makeText(this, "Usuário não está logado no firebase", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +47,6 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
         // Inicializa eventos
         setListeners()
         mSecurityPreferences = SecurityPreferences(this)
-        verifyData()
     }
 
     private fun setListeners(){
@@ -65,11 +82,5 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
 
     private fun newAccount(){
 
-    }
-    private fun verifyData(){
-        if(mSecurityPreferences.get("token") !=  ""){
-            startActivity(Intent(this,MainActivity::class.java))
-            finish()
-        }
     }
 }

@@ -126,6 +126,8 @@ class UserRepository {
         firebaseAuth.signInWithEmailAndPassword(email, pass)
             .addOnCompleteListener(activity) {task ->
                 if(task.isSuccessful){
+                    lateinit var sharingIntent : Intent
+                    sharingIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK;
                     context.startActivity(Intent(activity, MainActivity::class.java))
                     activity.finish()
                 }
