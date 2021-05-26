@@ -12,8 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Domicilio"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.ChatMainActivity"></activity>
-        <activity android:name=".view.MessageActivity"></activity>
+        <activity android:name=".view.RegisterDoctor"></activity>
+        <activity android:name=".view.ChatMainActivity" />
+        <activity android:name=".view.MessageActivity" />
         <activity android:name=".view.ActivityEvalue" />
         <activity android:name=".view.ActivityProfile" />
         <activity android:name=".view.ActivityAccountConfig" />

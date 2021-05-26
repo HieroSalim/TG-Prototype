@@ -17,8 +17,7 @@
         android:background="@color/teal_300"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/MenuStyle"
-        >
-    </androidx.appcompat.widget.Toolbar>
+        />
 
     <TextView
         android:id="@+id/cadastroUser"

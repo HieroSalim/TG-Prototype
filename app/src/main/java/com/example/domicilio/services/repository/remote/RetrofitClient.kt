@@ -10,6 +10,7 @@ class RetrofitClient private constructor() {
 
         private lateinit var retrofit: Retrofit
         private const val baseurl = "http://192.168.1.4:3000/"
+        private const val medicurl = "https://www.consultacrm.com.br/api/index.php?"
 
         private fun getRetrofitInstance(): Retrofit{
             val httpClient = OkHttpClient.Builder()
@@ -27,6 +28,21 @@ class RetrofitClient private constructor() {
             return getRetrofitInstance().create(serviceClass)
         }
 
-    }
+        private fun getRetrofitMedicInstance(tipoRegistro: String): Retrofit{
+            val httpClient = OkHttpClient.Builder()
+            if (!Companion::retrofit.isInitialized){
+                retrofit = Retrofit.Builder()
+                    .baseUrl(medicurl+"tipo=$tipoRegistro&uf=SP&q=bessa&chave=7576831950&destino=json")
+                    .client(httpClient.build())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+            }
+            return retrofit
+        }
 
+        fun <S> createMedicService(serviceClass: Class<S>, tipoRegistro: String): S {
+            return getRetrofitMedicInstance(tipoRegistro = "CRM").create(serviceClass)
+        }
+
+    }
 }

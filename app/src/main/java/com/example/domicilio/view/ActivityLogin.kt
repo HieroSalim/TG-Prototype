@@ -41,7 +41,7 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
         if(v.id == R.id.buttonLogin){
             signIn()
         }else if(v.id == R.id.cadastreSe){
-            startActivity(Intent(this, RegisterUser::class.java))
+            startActivity(Intent(this, RegisterDoctor::class.java))
         }
     }
     private fun signIn(){
