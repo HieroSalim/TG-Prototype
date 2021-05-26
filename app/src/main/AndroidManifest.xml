@@ -17,8 +17,12 @@
         <activity android:name=".view.MessageActivity" />
         <activity android:name=".view.ActivityEvalue" />
         <activity android:name=".view.ActivityProfile" />
-        <activity android:name=".view.ActivityAccountConfig" />
-        <activity android:name=".view.RegisterUser" />
+        <activity android:name=".view.ActivityAccountConfig"
+            android:parentActivityName=".view.MainActivity"
+            />
+        <activity android:name=".view.RegisterUser"
+                android:parentActivityName=".view.ActivityLogin"
+            />
         <activity android:name=".view.ActivityLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

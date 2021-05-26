@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import com.example.domicilio.R
 import com.example.domicilio.control.UserRepository
 import com.example.domicilio.services.listener.APIListenerUser
@@ -28,12 +29,11 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_user)
 
+        supportActionBar?.title = "Registre-se"
+
+
         //Chat
         firebaseAuth = FirebaseAuth.getInstance()
-
-        if(supportActionBar !=null){
-            supportActionBar!!.hide()
-        }
 
         //Inicializa os Eventos
         setListeners()

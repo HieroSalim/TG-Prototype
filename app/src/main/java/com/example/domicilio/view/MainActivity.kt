@@ -3,6 +3,7 @@ package com.example.domicilio.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -21,8 +22,9 @@ import com.example.domicilio.control.UserRepository
 import com.example.domicilio.services.listener.APIListenerUser
 import com.example.domicilio.services.model.UserModel
 import com.example.domicilio.services.repository.local.SecurityPreferences
+import com.google.firebase.auth.FirebaseAuth
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var mSecurityPreferences: SecurityPreferences
@@ -31,6 +33,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -45,13 +48,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
+        navView.setNavigationItemSelectedListener(this)
+        //val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
                 R.id.nav_home, R.id.nav_appointments, R.id.nav_chat), drawerLayout)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        //setupActionBarWithNavController(navController, appBarConfiguration)
+        //navView.setupWithNavController(navController)
 
     }
 
@@ -87,13 +91,29 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.account_settings){
+            startActivity(Intent(this, ActivityAccountConfig::class.java))
+        }
+        if (item.itemId == R.id.logout) {
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(this, ActivityLogin::class.java)
+            startActivity(intent)
+            finish()
+        }
+        return true
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun onClick(v: View) {
-        if(v.id == R.id.nav_chat)
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.nav_chat){
             startActivity(Intent(this, ChatMainActivity::class.java))
+        }
+        return true
     }
+
 }
