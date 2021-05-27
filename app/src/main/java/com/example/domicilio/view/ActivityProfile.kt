@@ -10,9 +10,7 @@ class ActivityProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        supportActionBar?.title = "Perfil"
-        supportActionBar?.displayOptions
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Perfil do profissional"
     }
     fun edit(){
 
