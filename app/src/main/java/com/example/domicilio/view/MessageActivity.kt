@@ -19,7 +19,6 @@ import com.google.firebase.database.*
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_message.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.app_bar_main.toolbar
 
 class MessageActivity : AppCompatActivity() {
     lateinit var profile_image: CircleImageView

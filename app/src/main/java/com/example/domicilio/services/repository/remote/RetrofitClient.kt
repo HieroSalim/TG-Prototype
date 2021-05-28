@@ -10,7 +10,7 @@ class RetrofitClient private constructor() {
 
         private lateinit var retrofit: Retrofit
         private lateinit var retrofitMedic: Retrofit
-        
+
         private const val baseurl = "http://10.0.0.105:3000/"
         private const val medicurl = "https://www.consultacrm.com.br/api/"
 
