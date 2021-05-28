@@ -23,4 +23,7 @@ class DoctorModel{
 
     @SerializedName("cell")
     var cell: String = ""
+
+    @SerializedName("item")
+    var item = object {}
 }

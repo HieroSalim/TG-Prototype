@@ -20,7 +20,7 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
     private lateinit var mSecurityPreferences: SecurityPreferences
 
 
-    override fun onStart() {
+    /*override fun onStart() {
         //Mantendo sessão no aplicativo
         super.onStart()
         var firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
@@ -34,7 +34,7 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(this, "Usuário não está logado no firebase", Toast.LENGTH_LONG).show()
             }
         }
-    }
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +46,7 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
 
         // Inicializa eventos
         setListeners()
-        mSecurityPreferences = SecurityPreferences(this)
+        //mSecurityPreferences = SecurityPreferences(this)
     }
 
     private fun setListeners(){

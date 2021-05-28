@@ -9,9 +9,10 @@ class RetrofitClient private constructor() {
     companion object{
 
         private lateinit var retrofit: Retrofit
+        private lateinit var retrofitMedic: Retrofit
 
-        private const val baseurl = "http://10.0.0.105:3000:3000/"
-        private const val medicurl = "https://www.consultacrm.com.br/api/index.php?"
+        private const val baseurl = "http://192.168.1.4:3000/"
+        private const val medicurl = "https://www.consultacrm.com.br/api/"
 
         private fun getRetrofitInstance(): Retrofit{
             val httpClient = OkHttpClient.Builder()
@@ -29,20 +30,20 @@ class RetrofitClient private constructor() {
             return getRetrofitInstance().create(serviceClass)
         }
 
-        private fun getRetrofitMedicInstance(tipoRegistro: String): Retrofit{
+        private fun getRetrofitMedicInstance(): Retrofit{
             val httpClient = OkHttpClient.Builder()
-            if (!Companion::retrofit.isInitialized){
-                retrofit = Retrofit.Builder()
-                    .baseUrl(medicurl+"tipo=$tipoRegistro&uf=SP&q=bessa&chave=7576831950&destino=json")
+            if (!Companion::retrofitMedic.isInitialized){
+                retrofitMedic = Retrofit.Builder()
+                    .baseUrl(medicurl)
                     .client(httpClient.build())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
             }
-            return retrofit
+            return retrofitMedic
         }
 
-        fun <S> createMedicService(serviceClass: Class<S>, tipoRegistro: String): S {
-            return getRetrofitMedicInstance(tipoRegistro = "CRM").create(serviceClass)
+        fun <S> createMedicService(serviceClass: Class<S>): S {
+            return getRetrofitMedicInstance().create(serviceClass)
         }
 
     }
