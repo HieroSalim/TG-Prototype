@@ -17,9 +17,7 @@ class RegisterDoctor : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_doctor)
 
-        if(supportActionBar !=null){
-            supportActionBar!!.hide()
-        }
+        supportActionBar?.title = "Cadastro médico"
 
         //Inicializa eventos
         setListeners()
