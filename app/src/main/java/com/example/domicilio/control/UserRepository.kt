@@ -11,6 +11,8 @@ import com.example.domicilio.services.model.UserModel
 import com.example.domicilio.services.repository.remote.RetrofitClient
 import com.example.domicilio.services.repository.remote.UserService
 import com.example.domicilio.view.MainActivity
+import com.example.domicilio.view.RegisterDoctor
+import com.example.domicilio.view.RegisterUser
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -40,7 +42,7 @@ class UserRepository {
                     listener.onFailure(jObjError.getString("mensagem"))
                 } else {
                     firebaseAuth = FirebaseAuth.getInstance()
-                    this@UserRepository.firebaseSignIn(context,activity,login,pass)
+                    this@UserRepository.firebaseSignIn(context, activity, login, pass)
                     response.body()?.let { listener.onSuccess(it) }
                 }
             }
@@ -59,7 +61,7 @@ class UserRepository {
             override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
                 if (response.code() != 201) {
                     val jObjError = JSONObject(response.errorBody()!!.string())
-                    listener.onFailure(jObjError.getString("error"))
+                    listener.onFailure(jObjError.getString("mensagem"))
                 } else {
                     firebaseAuth = FirebaseAuth.getInstance()
                     this@UserRepository.firebaseSignUp(context, activity, user, email, pass)
@@ -126,9 +128,11 @@ class UserRepository {
         firebaseAuth.signInWithEmailAndPassword(email, pass)
             .addOnCompleteListener(activity) {task ->
                 if(task.isSuccessful){
-                    lateinit var sharingIntent : Intent
-                    sharingIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK;
-                    context.startActivity(Intent(activity, MainActivity::class.java))
+                    //lateinit var sharingIntent : Intent
+                    //sharingIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK;
+                    val javaClass = if (activity == RegisterUser::class.java) RegisterDoctor::class.java
+                    else MainActivity::class.java
+                    context.startActivity(Intent(activity, javaClass))
                     activity.finish()
                 }
                 else{

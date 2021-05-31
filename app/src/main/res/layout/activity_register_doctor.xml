@@ -10,8 +10,8 @@
         android:id="@+id/tipoText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:text="Tipo de Registro"
         android:textColor="@color/teal_700"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@id/tipoText" />
 
     <EditText
-        android:id="@+id/crm"
+        android:id="@+id/registro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -40,9 +40,79 @@
         android:hint="Registro"
         android:inputType="number"
         android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/valid"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/typeProfessional" />
+
+    <ImageView
+        android:id="@+id/valid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:padding="4dp"
+        android:src="@drawable/ic_check"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/registro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/registro"
+        app:layout_constraintTop_toTopOf="@id/registro" />
+
+    <EditText
+        android:id="@+id/doctor_specialization"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/edit_text_border"
+        android:hint="Especialização"
+        android:inputType="text"
+        android:padding="8dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/registro" />
+
+    <TextView
+        android:id="@+id/typeCNHtext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:text="Tipo de CNH"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/doctor_specialization" />
+
+
+    <Spinner
+        android:id="@+id/typeCNH"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:padding="8dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/typeCNHtext" />
+
+    <EditText
+        android:id="@+id/NumeroCNH"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/edit_text_border"
+        android:hint="Número da CNH"
+        android:inputType="number"
+        android:padding="8dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/typeCNH" />
 
 
     <Button
@@ -53,6 +123,7 @@
         android:background="@drawable/button_border"
         android:text="Cadastrar"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -11,7 +11,7 @@ class RetrofitClient private constructor() {
         private lateinit var retrofit: Retrofit
         private lateinit var retrofitMedic: Retrofit
 
-        private const val baseurl = "http://10.0.0.105:3000/"
+        private const val baseurl = "http://192.168.1.4:3000/"
         private const val medicurl = "https://www.consultacrm.com.br/api/"
 
         private fun getRetrofitInstance(): Retrofit{

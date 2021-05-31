@@ -2,9 +2,9 @@ package com.example.domicilio.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -12,19 +12,21 @@ import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import com.example.domicilio.R
 import com.example.domicilio.control.UserRepository
 import com.example.domicilio.services.listener.APIListenerUser
 import com.example.domicilio.services.model.UserModel
 import com.example.domicilio.services.repository.local.SecurityPreferences
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_message.*
+import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var mSecurityPreferences: SecurityPreferences
@@ -33,8 +35,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        val toolbar: Toolbar = findViewById(R.id.mainToolbar)
+        toolbar.setNavigationIcon(R.drawable.ic_menu)
         setSupportActionBar(toolbar)
 
         //Inicializando variaveis
@@ -46,18 +48,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             Snackbar.make(view, "Abrir a tela de Agendamento", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         navView.setNavigationItemSelectedListener(this)
-        //val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.nav_home, R.id.nav_appointments, R.id.nav_chat), drawerLayout)
-        //setupActionBarWithNavController(navController, appBarConfiguration)
-        //navView.setupWithNavController(navController)
-
     }
+
 
     private fun loadUser(token: String){
         mUserRepository.loadSession(token, object : APIListenerUser {
@@ -97,9 +91,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         if (item.itemId == R.id.logout) {
             FirebaseAuth.getInstance().signOut()
+            mSecurityPreferences.remove("token")
+            mSecurityPreferences.remove("user")
+            mSecurityPreferences.remove("typeUser")
+            mSecurityPreferences.remove("email")
+            mSecurityPreferences.remove("name")
             val intent = Intent(this, ActivityLogin::class.java)
             startActivity(intent)
             finish()
+        }
+        if(item.itemId == 16908332){
+            val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+            drawerLayout.openDrawer(Gravity.LEFT)
         }
         return true
     }
@@ -112,8 +115,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.nav_chat){
             startActivity(Intent(this, ChatMainActivity::class.java))
+            val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+            drawerLayout.closeDrawer(Gravity.LEFT)
+        }
+        if(item.itemId == R.id.nav_appointments){
+            val navController = findNavController(R.id.nav_host_fragment)
+            navController.navigate(R.id.nav_appointments)
+            val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+            drawerLayout.closeDrawer(Gravity.LEFT)
+        }
+        if(item.itemId == R.id.nav_home){
+            val navController = findNavController(R.id.nav_host_fragment)
+            navController.navigate(R.id.nav_home)
+            val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+            drawerLayout.closeDrawer(Gravity.LEFT)
         }
         return true
     }
-
 }
