@@ -33,6 +33,7 @@ class AppointmentActivity : AppCompatActivity(), View.OnClickListener{
     fun populateSpinner(){
         val list: MutableList<String> = arrayListOf()
         list.add("CRM")
+        list.add("teste")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list)
         typeProfessional.adapter = adapter
     }
