@@ -5,8 +5,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.domicilio.R
 import kotlinx.android.synthetic.main.activity_account_config.*
-import kotlinx.android.synthetic.main.activity_account_config.view.*
-import kotlinx.android.synthetic.main.bar_layout.*
 
 
 class ActivityAccountConfig : AppCompatActivity(), View.OnClickListener {

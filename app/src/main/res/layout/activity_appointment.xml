@@ -1,100 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.AppointmentActivity">
 
-    <TextView
-        android:id="@+id/tipoText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:text="Tipo de profissional"
-        android:textColor="@color/teal_200"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <Spinner
-        android:id="@+id/typeProfessional"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tipoText"
-        />
-
-    <Button
-        android:layout_marginTop="150dp"
-        android:id="@+id/date_picker"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:text="Data"
-        app:layout_constraintTop_toBottomOf="@id/typeProfessional"
-        app:layout_constraintRight_toLeftOf="@id/time_picker"
-        app:layout_constraintLeft_toLeftOf="parent"/>
-
-    <Button
-        android:layout_marginTop="150dp"
-        android:id="@+id/time_picker"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:text="Horario"
-        app:layout_constraintTop_toBottomOf="@id/typeProfessional"
-        app:layout_constraintLeft_toRightOf="@+id/date_picker"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-    <TextView
-        android:id="@+id/date_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Data"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:textColor="@color/teal_200"
-        app:layout_constraintTop_toBottomOf="@id/time_picker"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/time_picker"
-        />
-    <TextView
-        android:id="@+id/hour_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hora"
-        android:textColor="@color/teal_200"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/date_picker"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/date_text"
-        />
-    <EditText
-        android:id="@+id/appointment_description"
-        android:layout_margin="16dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/date_text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@drawable/edit_text_border"
-        android:hint="Descrição (Opcional)"
-        android:padding="6dp"
-        />
-    <Button
-        android:layout_margin="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/appointment_description"
-        android:text="Buscar profissionais"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@drawable/button_border"
-        />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tipoText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Tipo de profissional"
+            android:textColor="@color/teal_200"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <Spinner
+            android:id="@+id/typeProfessional"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tipoText"
+            />
+
+        <Button
+            android:layout_marginTop="150dp"
+            android:id="@+id/date_picker"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:text="Data"
+            app:layout_constraintTop_toBottomOf="@id/typeProfessional"
+            app:layout_constraintRight_toLeftOf="@id/time_picker"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <Button
+            android:layout_marginTop="150dp"
+            android:id="@+id/time_picker"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:text="Horario"
+            app:layout_constraintTop_toBottomOf="@id/typeProfessional"
+            app:layout_constraintLeft_toRightOf="@+id/date_picker"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/teal_200"
+            app:layout_constraintTop_toBottomOf="@id/time_picker"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/time_picker"
+            />
+        <TextView
+            android:id="@+id/hour_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hora"
+            android:textColor="@color/teal_200"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/date_picker"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/date_text"
+            />
+        <EditText
+            android:id="@+id/appointment_description"
+            android:layout_margin="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/date_text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:background="@drawable/edit_text_border"
+            android:hint="Descrição (Opcional)"
+            android:padding="6dp"
+            />
+        <Button
+            android:id="@+id/search_doctor"
+            android:layout_margin="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/appointment_description"
+            android:text="Buscar profissionais"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:background="@drawable/button_border"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
