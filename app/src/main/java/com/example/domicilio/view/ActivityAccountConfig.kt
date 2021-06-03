@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.domicilio.R
+import com.example.domicilio.services.repository.local.SecurityPreferences
 import kotlinx.android.synthetic.main.activity_account_config.*
 
 
 class ActivityAccountConfig : AppCompatActivity(), View.OnClickListener {
 
+    private lateinit var mSecurityPreferences: SecurityPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,19 +18,19 @@ class ActivityAccountConfig : AppCompatActivity(), View.OnClickListener {
         supportActionBar?.title = "Editar informações de perfil"
 
         val parent = findViewById<View>(R.id.parent)
+        mSecurityPreferences = SecurityPreferences(this)
 
         setListeners()
-        observe()
+        loadData()
+    }
 
+    private fun loadData(){
+        user_name_edit.setText(mSecurityPreferences.get("name"))
+        user_email_edit.setText(mSecurityPreferences.get("email"))
     }
 
     private fun setListeners(){
         update_button.setOnClickListener(this)
-
-    }
-
-    private fun observe(){
-
     }
 
     fun disableUser(){

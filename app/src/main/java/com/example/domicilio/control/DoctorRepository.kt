@@ -1,8 +1,8 @@
 package com.example.domicilio.control
 
+import com.example.domicilio.services.listener.APIListenerDoctor
 import com.example.domicilio.services.listener.APIListenerValidate
 import com.example.domicilio.services.model.DoctorModel
-import com.example.domicilio.services.repository.local.SecurityPreferences
 import com.example.domicilio.services.repository.remote.DoctorService
 import com.example.domicilio.services.repository.remote.RetrofitClient
 import org.json.JSONObject
@@ -73,6 +73,24 @@ class DoctorRepository {
                 listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
             }
 
+        })
+    }
+
+    fun searchDoctorsOn(token: String, typeProfessional: String, listener: APIListenerDoctor){
+        val call: Call<DoctorModel> = mRemote.searchDoctorsOn("Bearer $token", typeProfessional)
+        call.enqueue(object : Callback<DoctorModel> {
+            override fun onResponse(call: Call<DoctorModel>, response: Response<DoctorModel>) {
+                if(response.code() != 200){
+                    val jObjError = JSONObject(response.errorBody()!!.string())
+                    listener.onFailure(jObjError.getString("mensagem"))
+                } else{
+                    response.body()?.let { listener.onSuccess(it) }
+                }
+            }
+
+            override fun onFailure(call: Call<DoctorModel>, t: Throwable) {
+                listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
+            }
         })
     }
 

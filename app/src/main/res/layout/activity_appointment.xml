@@ -9,20 +9,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/tipoText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
             android:text="Tipo de profissional"
             android:textColor="@color/teal_200"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
             android:id="@+id/typeProfessional"
@@ -30,76 +30,84 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:focusedByDefault="true"
             android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tipoText"
-            />
+            app:layout_constraintTop_toBottomOf="@id/tipoText" />
 
         <Button
-            android:layout_marginTop="150dp"
             android:id="@+id/date_picker"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
             android:text="Data"
-            app:layout_constraintTop_toBottomOf="@id/typeProfessional"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/time_picker"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/typeProfessional" />
 
         <Button
-            android:layout_marginTop="150dp"
             android:id="@+id/time_picker"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
             android:text="Horario"
-            app:layout_constraintTop_toBottomOf="@id/typeProfessional"
             app:layout_constraintLeft_toRightOf="@+id/date_picker"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/typeProfessional" />
 
         <TextView
             android:id="@+id/date_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Data"
-            android:textStyle="bold"
-            android:textSize="18sp"
             android:textColor="@color/teal_200"
-            app:layout_constraintTop_toBottomOf="@id/time_picker"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/time_picker"
-            />
+            app:layout_constraintTop_toBottomOf="@id/time_picker" />
+
         <TextView
             android:id="@+id/hour_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hora"
             android:textColor="@color/teal_200"
-            android:textStyle="bold"
             android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@id/date_picker"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/date_picker"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/date_text"
-            />
+            app:layout_constraintTop_toBottomOf="@id/date_picker" />
+
         <EditText
             android:id="@+id/appointment_description"
-            android:layout_margin="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/date_text"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_height="128dp"
+            android:layout_margin="16dp"
             android:background="@drawable/edit_text_border"
-            android:hint="Descrição (Opcional)"
+            android:gravity="left"
+            android:hint="Descrição"
             android:padding="6dp"
-            />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date_text" />
+
         <Button
             android:id="@+id/search_doctor"
-            android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/appointment_description"
+            android:layout_margin="32dp"
+            android:background="@drawable/button_border"
             android:text="Buscar profissionais"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:background="@drawable/button_border"
-            />
+            app:layout_constraintTop_toBottomOf="@id/appointment_description" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

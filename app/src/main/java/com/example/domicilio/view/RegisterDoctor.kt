@@ -57,6 +57,7 @@ class RegisterDoctor : AppCompatActivity(), View.OnClickListener {
 
     private fun setListeners() {
         buttonRegister.setOnClickListener(this)
+        buttonSkip.setOnClickListener(this)
         registro.addTextChangedListener(object : TextWatcher {
             var timer: CountDownTimer? = null
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -81,7 +82,7 @@ class RegisterDoctor : AppCompatActivity(), View.OnClickListener {
 
                                 override fun onFailure(msg: String) {
                                     valid.setImageResource(R.drawable.ic_refused)
-                                    setVisibility(value = false)
+                                       setVisibility(value = false)
                                     Toast.makeText(this@RegisterDoctor, msg, Toast.LENGTH_SHORT)
                                         .show()
                                 }
@@ -132,8 +133,11 @@ class RegisterDoctor : AppCompatActivity(), View.OnClickListener {
                     override fun onFailure(msg: String) {
                         Toast.makeText(this@RegisterDoctor, msg, Toast.LENGTH_SHORT).show()
                     }
-
                 })
+        }
+        if(v.id == R.id.buttonSkip){
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 }

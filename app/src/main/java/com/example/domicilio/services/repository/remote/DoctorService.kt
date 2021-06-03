@@ -21,4 +21,10 @@ interface DoctorService {
         @Field("typeCNH") typeCNH: String,
         @Field("CPF") CPF: String
     ):Call<DoctorModel>
+
+    @GET("doctor/on")
+    fun searchDoctorsOn(
+        @Header("Authorization") token: String,
+        @Query("type") typeProfessional: String
+    ):Call<DoctorModel>
 }

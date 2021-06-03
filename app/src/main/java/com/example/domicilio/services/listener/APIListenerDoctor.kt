@@ -6,5 +6,5 @@ interface APIListenerDoctor {
 
     fun onSuccess(model: DoctorModel)
 
-    fun onFailure()
+    fun onFailure(msg: String)
 }

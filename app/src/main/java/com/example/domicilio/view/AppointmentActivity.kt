@@ -5,12 +5,13 @@ import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.CalendarView
-import android.widget.DatePicker
-import android.widget.TimePicker
+import android.widget.*
 import androidx.fragment.app.DialogFragment
 import com.example.domicilio.R
+import com.example.domicilio.control.DoctorRepository
+import com.example.domicilio.services.listener.APIListenerDoctor
+import com.example.domicilio.services.model.DoctorModel
+import com.example.domicilio.services.repository.local.SecurityPreferences
 import kotlinx.android.synthetic.main.activity_appointment.*
 import kotlinx.android.synthetic.main.activity_register_doctor.*
 import kotlinx.android.synthetic.main.activity_register_doctor.typeProfessional
@@ -18,24 +19,34 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AppointmentActivity : AppCompatActivity(), View.OnClickListener{
+    private val mDoctorRepository = DoctorRepository()
+    private lateinit var mSecurityPreferences: SecurityPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_appointment)
         supportActionBar?.title = "Nova consulta"
+
+        mSecurityPreferences = SecurityPreferences(this)
+
         setListeners()
+        populateSpinner()
     }
 
     private fun setListeners() {
         time_picker.setOnClickListener(this)
         date_picker.setOnClickListener(this)
+        search_doctor.setOnClickListener(this)
     }
 
     fun populateSpinner(){
-        val list: MutableList<String> = arrayListOf()
-        list.add("CRM")
-        list.add("teste")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list)
-        typeProfessional.adapter = adapter
+        val typeProfessionals: MutableList<String> = arrayListOf()
+        typeProfessionals.add("Clínico Geral")
+        typeProfessionals.add("Ortopedista")
+
+        val adapterProfessionals =
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, typeProfessionals)
+        typeProfessional.adapter = adapterProfessionals
     }
 
     override fun onClick(v: View) {
@@ -56,6 +67,17 @@ class AppointmentActivity : AppCompatActivity(), View.OnClickListener{
                 date_text.text = SimpleDateFormat("dd/MM/yyyy").format(cal.time)
             }
             DatePickerDialog(this, dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
+        }
+        if(v.id == R.id.search_doctor){
+            mDoctorRepository.searchDoctorsOn(mSecurityPreferences.get("token"),typeProfessional.selectedItem.toString() ,object : APIListenerDoctor{
+                override fun onSuccess(model: DoctorModel) {
+
+                }
+                
+                override fun onFailure(msg: String) {
+                    Toast.makeText(this@AppointmentActivity, msg, Toast.LENGTH_SHORT).show()
+                }
+            })
         }
     }
 
