@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(intent)
             finish()
         }
-        if(item.itemId == 16908332){
+        if(item.itemId == android.R.id.home){
             val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
             drawerLayout.openDrawer(Gravity.LEFT)
         }

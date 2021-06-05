@@ -17,7 +17,7 @@
             android:name=".view.ActivityAccountConfig"
             android:parentActivityName=".view.MainActivity" />
         <activity android:name=".view.AppointmentActivity"
-            android:parentActivityName=".view.ActivityLogin" />
+            android:parentActivityName=".view.MainActivity" />
         <activity android:name=".view.AppointmentDetailsActivity" />
         <activity android:name=".view.RegisterDoctor" />
         <activity android:name=".view.ChatMainActivity" />

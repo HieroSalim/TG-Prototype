@@ -22,9 +22,16 @@ interface DoctorService {
         @Field("CPF") CPF: String
     ):Call<DoctorModel>
 
-    @GET("doctor/on")
+    @GET("doctor/on/{type}/{dateHour}")
     fun searchDoctorsOn(
         @Header("Authorization") token: String,
-        @Query("type") typeProfessional: String
+        @Path("type") typeProfessional: String,
+        @Path("dateHour") dateHour: String
+    ):Call<DoctorModel>
+
+    @GET("doctor/{id}")
+    fun loadProfile(
+        @Header("Authorization") token: String,
+        @Path("id") idProfile: Int
     ):Call<DoctorModel>
 }

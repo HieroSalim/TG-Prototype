@@ -40,7 +40,7 @@
             android:id="@+id/date_picker"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="32dp"
             android:text="Data"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/time_picker"
@@ -50,7 +50,7 @@
             android:id="@+id/time_picker"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="32dp"
             android:text="Horario"
             app:layout_constraintLeft_toRightOf="@+id/date_picker"
             app:layout_constraintRight_toRightOf="parent"
@@ -103,11 +103,12 @@
             app:layout_constraintTop_toBottomOf="@id/appointment_description" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/medicList"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/search_doctor" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

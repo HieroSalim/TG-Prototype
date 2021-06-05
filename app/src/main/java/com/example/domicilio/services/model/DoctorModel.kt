@@ -9,13 +9,22 @@ class DoctorModel{
     @SerializedName("profissao")
     var specialization: String = ""
 
+    @SerializedName("description")
+    var description: String = ""
+
+    @SerializedName("price")
+    var price: String = ""
+
+    @SerializedName("specialization")
+    var funcao: String = ""
+
     @SerializedName("CNH")
     var CNH: String = ""
 
     @SerializedName("typeCNH")
     var typeCNH: String =""
 
-    @SerializedName("nome")
+    @SerializedName("name")
     var name: String = ""
 
     @SerializedName("address")
@@ -26,4 +35,7 @@ class DoctorModel{
 
     @SerializedName("item")
     var item = object {}
+
+    @SerializedName("dados")
+    var medicos = object {}
 }

@@ -2,14 +2,18 @@ package com.example.domicilio.view
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import androidx.fragment.app.DialogFragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.domicilio.R
 import com.example.domicilio.control.DoctorRepository
-import com.example.domicilio.services.listener.APIListenerDoctor
+import com.example.domicilio.services.adapters.MedicAdapter
+import com.example.domicilio.services.listener.APIListener
+import com.example.domicilio.services.listener.AppointmentListener
 import com.example.domicilio.services.model.DoctorModel
 import com.example.domicilio.services.repository.local.SecurityPreferences
 import kotlinx.android.synthetic.main.activity_appointment.*
@@ -17,10 +21,14 @@ import kotlinx.android.synthetic.main.activity_register_doctor.*
 import kotlinx.android.synthetic.main.activity_register_doctor.typeProfessional
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
+
 
 class AppointmentActivity : AppCompatActivity(), View.OnClickListener{
     private val mDoctorRepository = DoctorRepository()
     private lateinit var mSecurityPreferences: SecurityPreferences
+    private lateinit var mListener: AppointmentListener
+    private val mAdapter = MedicAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +37,28 @@ class AppointmentActivity : AppCompatActivity(), View.OnClickListener{
 
         mSecurityPreferences = SecurityPreferences(this)
 
+        val recycler = findViewById<RecyclerView>(R.id.medicList)
+        recycler.layoutManager = LinearLayoutManager(baseContext)
+        recycler.adapter = mAdapter
+
+        mListener = object : AppointmentListener {
+            override fun onOpenProfile(id: Int) {
+                val intent = Intent(baseContext, ActivityProfile::class.java)
+                val bundle = Bundle()
+                bundle.putInt("idProfile", id)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
+
+        }
+
         setListeners()
         populateSpinner()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mAdapter.attachListener(mListener)
     }
 
     private fun setListeners() {
@@ -42,7 +70,6 @@ class AppointmentActivity : AppCompatActivity(), View.OnClickListener{
     fun populateSpinner(){
         val typeProfessionals: MutableList<String> = arrayListOf()
         typeProfessionals.add("Clínico Geral")
-        typeProfessionals.add("Ortopedista")
 
         val adapterProfessionals =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, typeProfessionals)
@@ -69,11 +96,16 @@ class AppointmentActivity : AppCompatActivity(), View.OnClickListener{
             DatePickerDialog(this, dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
         }
         if(v.id == R.id.search_doctor){
-            mDoctorRepository.searchDoctorsOn(mSecurityPreferences.get("token"),typeProfessional.selectedItem.toString() ,object : APIListenerDoctor{
-                override fun onSuccess(model: DoctorModel) {
-
+            val date = if (date_text.text != "") date_text.text.split('/') else date_text.text
+            var dateFormat = if (date != "") (date as List<String>).get(2) + '-'+ (date).get(1) +'-'+(date).get(0) else ""
+            val hour = hour_text.text
+            mDoctorRepository.searchDoctorsOn(mSecurityPreferences.get("token"),typeProfessional.selectedItem.toString(), "$dateFormat $hour" ,object :
+                APIListener<DoctorModel> {
+                override fun onSuccess(result: DoctorModel) {
+                    val medicos: ArrayList<DoctorModel> = result.medicos as ArrayList<DoctorModel>
+                    mAdapter.updateMedics(medicos)
                 }
-                
+
                 override fun onFailure(msg: String) {
                     Toast.makeText(this@AppointmentActivity, msg, Toast.LENGTH_SHORT).show()
                 }

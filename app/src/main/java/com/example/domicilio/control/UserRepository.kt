@@ -32,7 +32,7 @@ class UserRepository {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
 
-    fun login(context: Context, activity: Activity, login: String, pass: String, listener: APIListener) {
+    fun login(context: Context, activity: Activity, login: String, pass: String, listener: APIListener<LoginModel>) {
         val call: Call<LoginModel> = mRemote.login(login, pass)
         //Assíncrona
         call.enqueue(object : Callback<LoginModel> {
@@ -128,11 +128,10 @@ class UserRepository {
         firebaseAuth.signInWithEmailAndPassword(email, pass)
             .addOnCompleteListener(activity) {task ->
                 if(task.isSuccessful){
-                    //lateinit var sharingIntent : Intent
-                    //sharingIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK;
+                    lateinit var sharingIntent : Intent
                     val javaClass = if (activity == RegisterUser::class.java) RegisterDoctor::class.java
                     else MainActivity::class.java
-                    context.startActivity(Intent(activity, javaClass))
+                    context.startActivity(Intent(activity, javaClass).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                     activity.finish()
                 }
                 else{

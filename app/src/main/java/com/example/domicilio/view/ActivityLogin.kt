@@ -67,7 +67,7 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
         if(login == "" || pass == ""){
             Toast.makeText(this, "Nome do Usuário e Senha devem ser preenchidos", Toast.LENGTH_LONG).show()
         }else {
-            mUserRepository.login(baseContext, this, login, pass, object : APIListener{
+            mUserRepository.login(baseContext, this, login, pass, object : APIListener<LoginModel>{
                 override fun onSuccess(model: LoginModel) {
                     mSecurityPreferences.store("token", model.token)
                 }

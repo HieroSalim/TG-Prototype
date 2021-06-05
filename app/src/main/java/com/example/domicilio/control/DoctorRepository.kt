@@ -1,5 +1,6 @@
 package com.example.domicilio.control
 
+import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.listener.APIListenerDoctor
 import com.example.domicilio.services.listener.APIListenerValidate
 import com.example.domicilio.services.model.DoctorModel
@@ -76,8 +77,9 @@ class DoctorRepository {
         })
     }
 
-    fun searchDoctorsOn(token: String, typeProfessional: String, listener: APIListenerDoctor){
-        val call: Call<DoctorModel> = mRemote.searchDoctorsOn("Bearer $token", typeProfessional)
+    fun searchDoctorsOn(token: String, typeProfessional: String, dateHour: String, listener: APIListener<DoctorModel>){
+        val type = "CRM"
+        val call: Call<DoctorModel> = mRemote.searchDoctorsOn("Bearer $token", type, dateHour)
         call.enqueue(object : Callback<DoctorModel> {
             override fun onResponse(call: Call<DoctorModel>, response: Response<DoctorModel>) {
                 if(response.code() != 200){
@@ -91,6 +93,25 @@ class DoctorRepository {
             override fun onFailure(call: Call<DoctorModel>, t: Throwable) {
                 listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
             }
+        })
+    }
+
+    fun loadProfile(token: String, idProfile: Int, listener: APIListener<DoctorModel>){
+        val call: Call<DoctorModel> = mRemote.loadProfile("Bearer $token", idProfile)
+        call.enqueue(object : Callback<DoctorModel> {
+            override fun onResponse(call: Call<DoctorModel>, response: Response<DoctorModel>) {
+                if(response.code() != 200){
+                    val jObjError = JSONObject(response.errorBody()!!.string())
+                    listener.onFailure(jObjError.getString("mensagem"))
+                } else{
+                    response.body()?.let { listener.onSuccess(it) }
+                }
+            }
+
+            override fun onFailure(call: Call<DoctorModel>, t: Throwable) {
+                listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
+            }
+
         })
     }
 

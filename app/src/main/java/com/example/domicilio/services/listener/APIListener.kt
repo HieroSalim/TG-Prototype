@@ -2,9 +2,9 @@ package com.example.domicilio.services.listener
 
 import com.example.domicilio.services.model.LoginModel
 
-interface APIListener {
+interface APIListener<T> {
 
-    fun onSuccess(model: LoginModel)
+    fun onSuccess(result: T)
 
     fun onFailure(str: String)
 

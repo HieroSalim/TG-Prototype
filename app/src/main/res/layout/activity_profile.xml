@@ -27,7 +27,8 @@
         android:text="Doctor"
         android:textSize="18sp"
         />
-    <view
+    <ImageView
+        android:background="@color/teal_200"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="2dp"
@@ -51,7 +52,8 @@
         app:layout_constraintRight_toRightOf="parent"
         />
 
-    <view
+    <ImageView
+        android:background="@color/teal_200"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="2dp"
@@ -69,31 +71,28 @@
         android:textSize="16sp"
         android:layout_margin="16dp"
         android:padding="6dp"
+        android:focusable="false"
         android:text="Descrição"
         android:background="@drawable/edit_text_border"
         />
-    <TextView
-        android:id="@+id/work_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/description"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="Seg a sex das 9:00 ás 16:00"
-        android:layout_margin="16dp"
-        android:textSize="18sp"
-        />
+
     <TextView
         android:layout_margin="16dp"
         android:id="@+id/price"
+        android:textColor="#4CAF50"
+        android:textStyle="bold"
+        android:fontFamily="casual"
+        android:textAllCaps="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/work_time"
+        app:layout_constraintTop_toBottomOf="@id/description"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:text="Preço por consulta: R$"
-        android:textSize="18sp"
+        android:text="R$ 00,00"
+        android:textSize="32sp"
         />
 
     <Button
+        android:id="@+id/setAppointment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"

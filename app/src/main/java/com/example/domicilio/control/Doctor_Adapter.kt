@@ -27,12 +27,10 @@ class Doctor_Adapter {
             constructor(itemView: View): super(itemView){
                 this.doctor_name = doctor_name
                 this.doctor_specialization = doctor_specialization
-                this.doctor_address = doctor_address
                 this.doctor_image = doctor_image
             }
             var doctor_name: TextView = itemView.findViewById(R.id.doctor_name)
             var doctor_specialization: TextView = itemView.findViewById(R.id.doctor_specialization)
-            var doctor_address: TextView = itemView.findViewById(R.id.doctor_address)
             var doctor_image: ImageView = itemView.findViewById(R.id.doctor_image)
         }
 
@@ -46,8 +44,6 @@ class Doctor_Adapter {
             holder.doctor_name.text = doctor.name
 
             holder.doctor_specialization.text = doctor.specialization
-
-            holder.doctor_address.text = doctor.address
 
         }
 
