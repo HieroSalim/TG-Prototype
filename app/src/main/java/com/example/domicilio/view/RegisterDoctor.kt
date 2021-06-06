@@ -11,8 +11,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.domicilio.R
 import com.example.domicilio.control.DoctorRepository
-import com.example.domicilio.services.listener.APIListenerValidate
+import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.model.DoctorModel
+import com.example.domicilio.services.model.ObjectModel
 import com.example.domicilio.services.repository.local.SecurityPreferences
 import kotlinx.android.synthetic.main.activity_register_doctor.*
 
@@ -72,8 +73,8 @@ class RegisterDoctor : AppCompatActivity(), View.OnClickListener {
                     override fun onFinish() {
                         if (registro.text.toString() != " " && registro.text.toString() != "") {
                             mDoctorRepository.validate(registro.text.toString(), object :
-                                APIListenerValidate {
-                                override fun onSuccess(model: DoctorModel) {
+                                APIListener<ObjectModel> {
+                                override fun onSuccess(model: ObjectModel) {
                                     valid.setImageResource(R.drawable.ic_check)
                                     setVisibility()
                                     val profissao = model.item.toString().split(",")[3].split("=")
@@ -123,7 +124,7 @@ class RegisterDoctor : AppCompatActivity(), View.OnClickListener {
                 cnhNumber,
                 typeCNH,
                 CPF,
-                object : APIListenerValidate {
+                object : APIListener<DoctorModel> {
                     override fun onSuccess(model: DoctorModel) {
                         mSecurityPreferences.remove("CPF")
                         startActivity(Intent(this@RegisterDoctor, MainActivity::class.java))

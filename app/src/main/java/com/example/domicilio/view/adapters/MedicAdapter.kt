@@ -1,10 +1,10 @@
-package com.example.domicilio.services.adapters
+package com.example.domicilio.view.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domicilio.R
-import com.example.domicilio.services.adapters.viewholder.MedicViewHolder
+import com.example.domicilio.view.adapters.viewholder.MedicViewHolder
 import com.example.domicilio.services.listener.AppointmentListener
 import com.example.domicilio.services.model.DoctorModel
 import com.google.gson.internal.LinkedTreeMap

@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.example.domicilio.R
 import com.example.domicilio.control.UserRepository
-import com.example.domicilio.services.listener.APIListenerUser
+import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.model.UserModel
 import com.example.domicilio.services.repository.local.SecurityPreferences
 import com.example.domicilio.view.fragments.CompletedFragment
@@ -43,9 +43,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val vpAdapter = VPAdapter(supportFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
         val viewPager : ViewPager = findViewById(R.id.viewpager)
 
-        vpAdapter.addFragment(PendingFragment(), "PENDENTES")
-        vpAdapter.addFragment(InProgressFragment(), "EM ANDAMENTO")
-        vpAdapter.addFragment(CompletedFragment(), "CONCLUÍDAS")
+        vpAdapter.addFragment(PendingFragment(), "EM ESPERA")
+        vpAdapter.addFragment(InProgressFragment(), "AGENDADAS")
+        vpAdapter.addFragment(CompletedFragment(), "REALIZADAS")
 
         viewPager.adapter = vpAdapter
         tab_layout.setupWithViewPager(viewPager)
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     private fun loadUser(token: String){
-        mUserRepository.loadSession(token, object : APIListenerUser {
+        mUserRepository.loadSession(token, object : APIListener<UserModel> {
             override fun onSuccess(model: UserModel) {
                 mSecurityPreferences.store("user",model.user)
                 mSecurityPreferences.store("typeUser",model.typeUser)

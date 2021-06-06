@@ -8,17 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.domicilio.R
-import com.example.domicilio.control.UserChat_Adapter
+import com.example.domicilio.view.adapters.UserChat_Adapter
 import com.example.domicilio.services.model.ChatListModel
 import com.example.domicilio.services.model.UserChatModel
-import com.example.domicilio.services.model.UserModel
-import com.example.domicilio.view.ui.chat.ChatFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_chat_main.*
-import kotlinx.android.synthetic.main.bar_layout.*
-import kotlinx.android.synthetic.main.bar_layout.toolbar
 
 class ChatMainActivity : AppCompatActivity(), View.OnClickListener {
 

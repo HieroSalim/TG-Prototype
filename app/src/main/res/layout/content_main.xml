@@ -29,17 +29,17 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pendentes"
+                android:text="Em Espera"
                 />
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="em andamento"
+                android:text="Agendadas"
                 />
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Concluídas"
+                android:text="Realizadas"
                 />
         </com.google.android.material.tabs.TabLayout>
     </androidx.viewpager.widget.ViewPager>

@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import com.example.domicilio.services.listener.APIListener
-import com.example.domicilio.services.listener.APIListenerUser
 import com.example.domicilio.services.model.LoginModel
 import com.example.domicilio.services.model.UserModel
 import com.example.domicilio.services.repository.remote.RetrofitClient
@@ -54,7 +53,7 @@ class UserRepository {
         })
     }
 
-    fun add(context: Context, activity: Activity,CPF: String,name: String, email:String, user: String, pass: String, cell: String, typeUser: String, listener: APIListenerUser) {
+    fun add(context: Context, activity: Activity,CPF: String,name: String, email:String, user: String, pass: String, cell: String, typeUser: String, listener: APIListener<UserModel>) {
         val call: Call<UserModel> = mRemote.register(CPF, name, email, user, pass, cell, typeUser)
         //Assíncrona
         call.enqueue(object : Callback<UserModel> {
@@ -75,7 +74,7 @@ class UserRepository {
         })
     }
 
-    fun loadSession(token: String, listener: APIListenerUser){
+    fun loadSession(token: String, listener: APIListener<UserModel>){
         val call: Call<UserModel> = mRemote.loadSession("Bearer $token")
         //Assíncrona
         call.enqueue(object : Callback<UserModel> {

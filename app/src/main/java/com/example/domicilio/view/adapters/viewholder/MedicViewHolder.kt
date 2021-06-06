@@ -1,4 +1,4 @@
-package com.example.domicilio.services.adapters.viewholder
+package com.example.domicilio.view.adapters.viewholder
 
 import android.view.View
 import android.widget.ImageView

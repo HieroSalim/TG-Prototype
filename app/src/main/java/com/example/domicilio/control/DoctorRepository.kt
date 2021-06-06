@@ -1,9 +1,9 @@
 package com.example.domicilio.control
 
 import com.example.domicilio.services.listener.APIListener
-import com.example.domicilio.services.listener.APIListenerDoctor
-import com.example.domicilio.services.listener.APIListenerValidate
 import com.example.domicilio.services.model.DoctorModel
+import com.example.domicilio.services.model.ObjectModel
+import com.example.domicilio.services.model.ProfileModel
 import com.example.domicilio.services.repository.remote.DoctorService
 import com.example.domicilio.services.repository.remote.RetrofitClient
 import org.json.JSONObject
@@ -16,7 +16,7 @@ class DoctorRepository {
     private lateinit var mMedicRemote: DoctorService
     private val mRemote = RetrofitClient.createService(DoctorService::class.java)
 
-    fun validate(numero: String, listener: APIListenerValidate) {
+    fun validate(numero: String, listener: APIListener<ObjectModel>) {
         mMedicRemote = RetrofitClient.createMedicService(DoctorService::class.java)
         val filter = HashMap<String, String>()
         filter["tipo"] = "CRM"
@@ -24,10 +24,10 @@ class DoctorRepository {
         filter["q"] = numero
         filter["chave"] = "7576831950"
         filter["destino"] = "json"
-        val call: Call<DoctorModel> = mMedicRemote.validate(filter)
+        val call: Call<ObjectModel> = mMedicRemote.validate(filter)
         //Assíncrona
-        call.enqueue(object : Callback<DoctorModel> {
-            override fun onResponse(call: Call<DoctorModel>, response: Response<DoctorModel>) {
+        call.enqueue(object : Callback<ObjectModel> {
+            override fun onResponse(call: Call<ObjectModel>, response: Response<ObjectModel>) {
                 if (response.code() != 200) {
                     val jObjError = JSONObject(response.errorBody()!!.string())
                     listener.onFailure(jObjError.getString("erro"))
@@ -42,7 +42,7 @@ class DoctorRepository {
                 }
             }
 
-            override fun onFailure(call: Call<DoctorModel>, t: Throwable) {
+            override fun onFailure(call: Call<ObjectModel>, t: Throwable) {
                 listener.onFailure(t.toString())
             }
 
@@ -54,7 +54,7 @@ class DoctorRepository {
         cnhNumber: String,
         typeCNH: String,
         CPF: String,
-        listener: APIListenerValidate
+        listener: APIListener<DoctorModel>
     ) {
 
         val call: Call<DoctorModel> = mRemote.register(
@@ -77,11 +77,11 @@ class DoctorRepository {
         })
     }
 
-    fun searchDoctorsOn(token: String, typeProfessional: String, dateHour: String, listener: APIListener<DoctorModel>){
+    fun searchDoctorsOn(token: String, typeProfessional: String, dateHour: String, listener: APIListener<ObjectModel>){
         val type = "CRM"
-        val call: Call<DoctorModel> = mRemote.searchDoctorsOn("Bearer $token", type, dateHour)
-        call.enqueue(object : Callback<DoctorModel> {
-            override fun onResponse(call: Call<DoctorModel>, response: Response<DoctorModel>) {
+        val call: Call<ObjectModel> = mRemote.searchDoctorsOn("Bearer $token", type, dateHour)
+        call.enqueue(object : Callback<ObjectModel> {
+            override fun onResponse(call: Call<ObjectModel>, response: Response<ObjectModel>) {
                 if(response.code() != 200){
                     val jObjError = JSONObject(response.errorBody()!!.string())
                     listener.onFailure(jObjError.getString("mensagem"))
@@ -90,16 +90,16 @@ class DoctorRepository {
                 }
             }
 
-            override fun onFailure(call: Call<DoctorModel>, t: Throwable) {
+            override fun onFailure(call: Call<ObjectModel>, t: Throwable) {
                 listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
             }
         })
     }
 
-    fun loadProfile(token: String, idProfile: Int, listener: APIListener<DoctorModel>){
-        val call: Call<DoctorModel> = mRemote.loadProfile("Bearer $token", idProfile)
-        call.enqueue(object : Callback<DoctorModel> {
-            override fun onResponse(call: Call<DoctorModel>, response: Response<DoctorModel>) {
+    fun loadProfile(token: String, idProfile: Int, listener: APIListener<ProfileModel>){
+        val call: Call<ProfileModel> = mRemote.loadProfile("Bearer $token", idProfile)
+        call.enqueue(object : Callback<ProfileModel> {
+            override fun onResponse(call: Call<ProfileModel>, response: Response<ProfileModel>) {
                 if(response.code() != 200){
                     val jObjError = JSONObject(response.errorBody()!!.string())
                     listener.onFailure(jObjError.getString("mensagem"))
@@ -108,7 +108,7 @@ class DoctorRepository {
                 }
             }
 
-            override fun onFailure(call: Call<DoctorModel>, t: Throwable) {
+            override fun onFailure(call: Call<ProfileModel>, t: Throwable) {
                 listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
             }
 

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domicilio.R
-import com.example.domicilio.control.UserChat_Adapter
+import com.example.domicilio.view.adapters.UserChat_Adapter
 import com.example.domicilio.services.model.ChatListModel
 import com.example.domicilio.services.model.UserChatModel
 import com.google.firebase.auth.FirebaseAuth

@@ -8,7 +8,6 @@ import android.widget.Toast
 import com.example.domicilio.R
 import com.example.domicilio.control.UserRepository
 import com.example.domicilio.services.listener.APIListener
-import com.example.domicilio.services.listener.APIListenerUser
 import com.example.domicilio.services.model.LoginModel
 import com.example.domicilio.services.model.UserModel
 import com.example.domicilio.services.repository.local.SecurityPreferences
@@ -75,7 +74,7 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
                     pass,
                     cell,
                     type,
-                    object : APIListenerUser {
+                    object : APIListener<UserModel> {
                         override fun onSuccess(model: UserModel) {
                             var javaClass = if (checkType.isChecked) RegisterDoctor::class.java
                             else MainActivity::class.java

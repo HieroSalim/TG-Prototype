@@ -7,14 +7,17 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domicilio.R
 import com.example.domicilio.control.DoctorRepository
-import com.example.domicilio.services.adapters.MedicAdapter
+import com.example.domicilio.view.adapters.MedicAdapter
 import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.listener.AppointmentListener
+import com.example.domicilio.services.model.AddressModel
 import com.example.domicilio.services.model.DoctorModel
+import com.example.domicilio.services.model.ObjectModel
 import com.example.domicilio.services.repository.local.SecurityPreferences
 import kotlinx.android.synthetic.main.activity_appointment.*
 import kotlinx.android.synthetic.main.activity_register_doctor.*
@@ -45,15 +48,28 @@ class AppointmentActivity : AppCompatActivity(), View.OnClickListener{
             override fun onOpenProfile(id: Int) {
                 val intent = Intent(baseContext, ActivityProfile::class.java)
                 val bundle = Bundle()
+                val date = if (date_text.text != "") date_text.text.split('/') else date_text.text
+                var dateFormat = if (date != "") (date as List<String>).get(2) + '-'+ (date).get(1) +'-'+(date).get(0) else ""
+                val hour = hour_text.text
+                val Street: AddressModel = address.selectedItem as AddressModel
                 bundle.putInt("idProfile", id)
+                bundle.putString("dateHour","$dateFormat $hour")
+                bundle.putInt("idAddress", Street.idAddress)
                 intent.putExtras(bundle)
-                startActivity(intent)
+                startActivityForResult(intent, 1)
             }
 
         }
 
         setListeners()
         populateSpinner()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1){
+            finish()
+        }
     }
 
     override fun onResume() {
@@ -74,6 +90,14 @@ class AppointmentActivity : AppCompatActivity(), View.OnClickListener{
         val adapterProfessionals =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, typeProfessionals)
         typeProfessional.adapter = adapterProfessionals
+
+
+        val Address: MutableList<AddressModel> = arrayListOf()
+        Address.add(AddressModel("Rua de Teste", 5))
+
+        val adapterAdress =
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Address)
+        address.adapter = adapterAdress
     }
 
     override fun onClick(v: View) {
@@ -100,9 +124,9 @@ class AppointmentActivity : AppCompatActivity(), View.OnClickListener{
             var dateFormat = if (date != "") (date as List<String>).get(2) + '-'+ (date).get(1) +'-'+(date).get(0) else ""
             val hour = hour_text.text
             mDoctorRepository.searchDoctorsOn(mSecurityPreferences.get("token"),typeProfessional.selectedItem.toString(), "$dateFormat $hour" ,object :
-                APIListener<DoctorModel> {
-                override fun onSuccess(result: DoctorModel) {
-                    val medicos: ArrayList<DoctorModel> = result.medicos as ArrayList<DoctorModel>
+                APIListener<ObjectModel> {
+                override fun onSuccess(result: ObjectModel) {
+                    val medicos: ArrayList<DoctorModel> = result.dados as ArrayList<DoctorModel>
                     mAdapter.updateMedics(medicos)
                 }
 

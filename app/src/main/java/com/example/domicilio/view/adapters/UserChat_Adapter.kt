@@ -1,4 +1,4 @@
-package com.example.domicilio.control
+package com.example.domicilio.view.adapters
 import com.example.domicilio.R
 import android.content.Context
 import android.content.Intent
@@ -40,7 +40,7 @@ class UserChat_Adapter: RecyclerView.Adapter<UserChat_Adapter.ViewHolder>{
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(mContext).inflate(R.layout.user_item, parent, false)
-        return UserChat_Adapter.ViewHolder(view)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

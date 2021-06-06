@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="12dp"
     android:background="@drawable/rectangle_background">
@@ -20,7 +20,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="Nome:"
+            android:text="Agendamento com: "
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif"
             android:textSize="16sp"
             android:padding="6dp"/>
 
@@ -31,7 +33,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/doctor_name"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:text="Data:"
+            android:text="Data solicitada: "
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif"
             android:textSize="16sp"
             android:padding="6dp"
             />
@@ -42,7 +46,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/appointment_date"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:text="Status:"
+            android:text="Status: "
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif"
             android:textSize="16sp"
             android:padding="6dp"
             />

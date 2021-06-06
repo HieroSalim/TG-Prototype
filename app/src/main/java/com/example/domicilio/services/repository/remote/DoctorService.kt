@@ -1,6 +1,8 @@
 package com.example.domicilio.services.repository.remote
 
 import com.example.domicilio.services.model.DoctorModel
+import com.example.domicilio.services.model.ObjectModel
+import com.example.domicilio.services.model.ProfileModel
 import com.google.gson.annotations.SerializedName
 import retrofit2.Call
 import retrofit2.http.*
@@ -8,7 +10,7 @@ import retrofit2.http.*
 interface DoctorService {
 
     @GET("index.php")
-    fun validate(@QueryMap filter: HashMap<String,String>):Call<DoctorModel>
+    fun validate(@QueryMap filter: HashMap<String,String>):Call<ObjectModel>
 
     @POST("doctor")
     @FormUrlEncoded
@@ -27,11 +29,11 @@ interface DoctorService {
         @Header("Authorization") token: String,
         @Path("type") typeProfessional: String,
         @Path("dateHour") dateHour: String
-    ):Call<DoctorModel>
+    ):Call<ObjectModel>
 
     @GET("doctor/{id}")
     fun loadProfile(
         @Header("Authorization") token: String,
         @Path("id") idProfile: Int
-    ):Call<DoctorModel>
+    ):Call<ProfileModel>
 }

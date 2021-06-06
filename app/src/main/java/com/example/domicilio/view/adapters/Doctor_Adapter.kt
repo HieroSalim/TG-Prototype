@@ -1,4 +1,4 @@
-package com.example.domicilio.control
+package com.example.domicilio.view.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domicilio.R
-import com.example.domicilio.services.model.AppointmentModel
 import com.example.domicilio.services.model.DoctorModel
 
 class Doctor_Adapter {
@@ -34,12 +33,12 @@ class Doctor_Adapter {
             var doctor_image: ImageView = itemView.findViewById(R.id.doctor_image)
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Doctor_Adapter.ViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view: View = LayoutInflater.from(mContext).inflate(R.layout.doctor_item, parent, false)
-            return Doctor_Adapter.ViewHolder(view)
+            return ViewHolder(view)
         }
 
-        override fun onBindViewHolder(holder: Doctor_Adapter.ViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val doctor: DoctorModel = mDoctor[position]
             holder.doctor_name.text = doctor.name
 
