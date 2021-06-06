@@ -27,6 +27,7 @@ class ChatMainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.title = "Conversas"
 
         setContentView(R.layout.activity_chat_main)
         var mFirebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser

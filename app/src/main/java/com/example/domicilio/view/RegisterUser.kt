@@ -1,5 +1,6 @@
 package com.example.domicilio.view
 
+import TermsDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -40,6 +41,7 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
 
         //Inicializa os Eventos
         setListeners()
+        openDialog()
     }
 
     private fun setListeners() {
@@ -183,5 +185,10 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(this@RegisterUser, str, Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun openDialog(){
+        var termsDialog: TermsDialog = TermsDialog()
+        termsDialog.show(supportFragmentManager, "Termos")
     }
 }
