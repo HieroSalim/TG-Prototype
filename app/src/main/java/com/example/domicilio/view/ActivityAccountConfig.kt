@@ -26,7 +26,6 @@ class ActivityAccountConfig : AppCompatActivity(), View.OnClickListener {
 
     private fun loadData(){
         user_name_edit.setText(mSecurityPreferences.get("name"))
-        user_email_edit.setText(mSecurityPreferences.get("email"))
     }
 
     private fun setListeners(){

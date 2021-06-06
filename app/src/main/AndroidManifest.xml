@@ -20,8 +20,10 @@
             android:parentActivityName=".view.MainActivity" />
         <activity android:name=".view.AppointmentDetailsActivity" />
         <activity android:name=".view.RegisterDoctor" />
-        <activity android:name=".view.ChatMainActivity" />
-        <activity android:name=".view.MessageActivity" />
+        <activity android:name=".view.ChatMainActivity"
+            android:parentActivityName=".view.MainActivity" />
+        <activity android:name=".view.MessageActivity"
+            android:parentActivityName=".view.ChatMainActivity" />
         <activity android:name=".view.ActivityEvalue" />
         <activity android:name=".view.ActivityProfile" />
         <activity

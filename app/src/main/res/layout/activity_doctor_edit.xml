@@ -26,7 +26,6 @@
             android:layout_marginTop="16dp"
             android:imeOptions="actionDone"
             android:text="Nome"
-            android:background="@drawable/edit_text_border"
             android:padding="6dp"
             android:layout_margin="16dp"
             android:textSize="18sp"
@@ -44,7 +43,6 @@
             android:text="Telefone"
             android:inputType="phone"
             android:textSize="18sp"
-            android:background="@drawable/edit_text_border"
             android:padding="6dp"
             android:layout_margin="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -60,30 +58,12 @@
             android:layout_marginTop="32dp"
             android:imeOptions="actionDone"
             android:text="Endereço"
-            android:background="@drawable/edit_text_border"
             android:padding="6dp"
             android:layout_margin="16dp"
             android:textSize="18sp"
-
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/user_phone_edit" />
-
-
-        <EditText
-            android:id="@+id/user_email_edit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:imeOptions="actionDone"
-            android:text="Email"
-            android:textSize="18sp"
-            android:background="@drawable/edit_text_border"
-            android:padding="6dp"
-            android:layout_margin="16dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_address_edit" />
 
         <Button
             android:id="@+id/update_button"

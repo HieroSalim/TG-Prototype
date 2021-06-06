@@ -25,16 +25,6 @@
             app:layout_constraintLeft_toLeftOf="@id/profile_image"
             />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/Principal"
-            app:tabSelectedTextColor="#fff"
-            app:tabIndicatorColor="#fff"
-            app:layout_constraintTop_toBottomOf="@id/profile_image"
-            app:tabTextColor="#fff"/>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
