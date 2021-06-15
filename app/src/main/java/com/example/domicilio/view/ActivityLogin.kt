@@ -71,7 +71,7 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
             mUserRepository.login(baseContext, this, login, pass, object : APIListener<LoginModel>{
                 override fun onSuccess(model: LoginModel) {
                     mSecurityPreferences.store("token", model.token)
-                    if(!model.auth) openDialog()
+                    mSecurityPreferences.store("auth", model.auth.toString())
                 }
 
                 override fun onFailure(str: String) {
@@ -80,10 +80,5 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
 
             })
         }
-    }
-
-    private fun openDialog(){
-        var termsDialog = TermsDialog()
-        termsDialog.show(supportFragmentManager, "Termos")
     }
 }

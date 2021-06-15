@@ -140,15 +140,13 @@ class UserRepository {
         }
     }
 
-    fun acceptTerm(context: Context, token: String,user: String, status: Boolean){
+    fun acceptTerm(context: Context, token: String,user: String, status: Int){
         val call: Call<LoginModel> = mRemote.acceptTerm(token ,user, status)
 
         call.enqueue(object : Callback<LoginModel> {
             override fun onResponse(call: Call<LoginModel>, response: Response<LoginModel>) {
                 if(response.code() != 200) {
                     Toast.makeText(context, "Ocorreu um erro inesperado. Tente novamente mais tarde.", Toast.LENGTH_LONG).show()
-                }else{
-                    context.startActivity(Intent(context, MainActivity::class.java))
                 }
             }
 

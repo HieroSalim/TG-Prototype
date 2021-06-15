@@ -37,11 +37,6 @@ class CompletedFragment : Fragment() {
         return root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        load(false)
-    }
-
     override fun onResume() {
         super.onResume()
         load()

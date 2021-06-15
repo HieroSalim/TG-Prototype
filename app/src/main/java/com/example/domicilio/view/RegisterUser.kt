@@ -178,6 +178,7 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
         mUserRepository.login(baseContext, this, email, pass, object : APIListener<LoginModel> {
             override fun onSuccess(model: LoginModel) {
                 mSecurityPreferences.store("token", model.token)
+                mSecurityPreferences.store("auth", model.auth.toString())
             }
 
             override fun onFailure(str: String) {

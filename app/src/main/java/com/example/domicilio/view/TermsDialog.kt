@@ -32,8 +32,7 @@ class TermsDialog: AppCompatDialogFragment() {
                     "O uso continuado de nosso sistema será considerado como aceitação de nossas práticas em torno de privacidade e informações pessoais. Se você tiver alguma dúvida sobre como lidamos com dados do usuário e informações pessoais, entre em contato conosco.")
             .setPositiveButton("Concordo") { dialog, id ->
                 val token = mSecurityPreferences.get("token")
-                mUserRepository.acceptTerm(this.requireContext(), "Bearer $token", mSecurityPreferences.get("user"), true)
-                activity?.finish()
+                mUserRepository.acceptTerm(this.requireContext(), "Bearer $token", mSecurityPreferences.get("user"), 1)
             }
 
             .setNegativeButton("Discordo") { dialog, id ->

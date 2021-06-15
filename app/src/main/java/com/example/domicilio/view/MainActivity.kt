@@ -1,5 +1,6 @@
 package com.example.domicilio.view
 
+import TermsDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
@@ -74,6 +75,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 mSecurityPreferences.store("name",model.name)
                 nav_view.name.text = model.user
                 nav_view.email.text = model.email
+                if(!mSecurityPreferences.get("auth").toBoolean()){
+                    openDialog()
+                }
+                mSecurityPreferences.remove("auth")
             }
 
             override fun onFailure(str: String) {
@@ -130,6 +135,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(Intent(this, AppointmentActivity::class.java ))
         }
         return true
+    }
+
+    private fun openDialog(){
+        var termsDialog = TermsDialog()
+        termsDialog.show(supportFragmentManager, "Termos")
     }
 
 }

@@ -29,11 +29,11 @@ interface UserService {
     @GET("authentication/loadsession")
     fun loadSession(@Header("Authorization") token: String): Call<UserModel>
 
-    @POST("terms")
+    @POST("authentication/terms")
     @FormUrlEncoded
     fun acceptTerm(
-        @Header("Authorizathion") token: String,
+        @Header("Authorization") token: String,
         @Field("user") user: String,
-        @Field("status") status: Boolean
+        @Field("status") status: Int
     ): Call<LoginModel>
 }

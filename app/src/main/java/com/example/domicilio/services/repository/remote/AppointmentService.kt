@@ -19,7 +19,7 @@ interface AppointmentService {
         @Field("fkAddress") fkAddress: Int
     ):Call<MessageModel>
 
-    @GET("/appointment/{user}")
+    @GET("/appointment/solicitation/{user}")
     fun loadWait(
         @Header("Authorization") token: String,
         @Path("user") user: String
