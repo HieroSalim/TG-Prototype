@@ -1,6 +1,7 @@
 package com.example.domicilio.view.adapters.viewholder
 
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domicilio.R
@@ -25,5 +26,9 @@ class AppointmentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         dateHourAppointment.text = formatado
         val statusFormat = "Status: "+ if (medic["statusDoctor"].toString().split('.')[0].toInt() == 0) "Em Espera" else "Confirmada"
         status.text = statusFormat
+
+        val button = itemView.findViewById<Button>(R.id.button_changeConsult)
+        button.visibility = if (medic["statusDoctor"].toString().split('.')[0].toInt() == 1) View.VISIBLE else View.GONE
+
     }
 }

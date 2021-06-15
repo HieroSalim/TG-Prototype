@@ -1,5 +1,6 @@
 package com.example.domicilio.view
 
+import TermsDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -70,6 +71,7 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
             mUserRepository.login(baseContext, this, login, pass, object : APIListener<LoginModel>{
                 override fun onSuccess(model: LoginModel) {
                     mSecurityPreferences.store("token", model.token)
+                    if(!model.auth) openDialog()
                 }
 
                 override fun onFailure(str: String) {
@@ -80,7 +82,8 @@ class ActivityLogin : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun newAccount(){
-
+    private fun openDialog(){
+        var termsDialog = TermsDialog()
+        termsDialog.show(supportFragmentManager, "Termos")
     }
 }

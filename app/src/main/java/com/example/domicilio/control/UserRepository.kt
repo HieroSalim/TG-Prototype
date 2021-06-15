@@ -69,7 +69,7 @@ class UserRepository {
             }
 
             override fun onFailure(call: Call<UserModel>, t: Throwable) {
-                listener.onFailure("Ocorre um erro inesperado. Tente novamente mais tarde.")
+                listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
             }
         })
     }
@@ -93,7 +93,7 @@ class UserRepository {
             }
 
             override fun onFailure(call: Call<UserModel>, t: Throwable) {
-                listener.onFailure("Ocorre um erro inesperado. Tente novamente mais tarde.")
+                listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
             }
         })
     }
@@ -140,16 +140,22 @@ class UserRepository {
         }
     }
 
-    fun listDoctor(){
+    fun acceptTerm(context: Context, token: String,user: String, status: Boolean){
+        val call: Call<LoginModel> = mRemote.acceptTerm(token ,user, status)
 
-    }
-    fun setEvalue(){
+        call.enqueue(object : Callback<LoginModel> {
+            override fun onResponse(call: Call<LoginModel>, response: Response<LoginModel>) {
+                if(response.code() != 200) {
+                    Toast.makeText(context, "Ocorreu um erro inesperado. Tente novamente mais tarde.", Toast.LENGTH_LONG).show()
+                }else{
+                    context.startActivity(Intent(context, MainActivity::class.java))
+                }
+            }
 
-    }
-    fun EvalueAtt(){
+            override fun onFailure(call: Call<LoginModel>, t: Throwable) {
+                Toast.makeText(context, "Ocorreu um erro inesperado. Tente novamente mais tarde.", Toast.LENGTH_LONG).show()
+            }
 
-    }
-    fun getTypeUser(){
-
+        })
     }
 }

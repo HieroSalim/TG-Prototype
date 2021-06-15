@@ -24,4 +24,16 @@ interface AppointmentService {
         @Header("Authorization") token: String,
         @Path("user") user: String
     ):Call<ObjectModel>
+
+    @GET("/appointment/confirm/{user}")
+    fun loadAccepts(
+        @Header("Authorization") token: String,
+        @Path("user") user: String
+    ):Call<ObjectModel>
+
+    @GET("/appointment/completes/{user}")
+    fun loadCompletes(
+        @Header("Authorization") token: String,
+        @Path("user") user: String
+    ):Call<ObjectModel>
 }

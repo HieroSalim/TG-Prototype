@@ -1,8 +1,6 @@
 package com.example.domicilio.view.fragments
 
-import android.content.Context
 import android.os.Bundle
-import android.view.ContextMenu
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +12,6 @@ import com.example.domicilio.R
 import com.example.domicilio.control.AppointmentRepository
 import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.model.AppointmentModel
-import com.example.domicilio.services.model.DoctorModel
 import com.example.domicilio.services.model.ObjectModel
 import com.example.domicilio.services.repository.local.SecurityPreferences
 import com.example.domicilio.view.adapters.Appointment_Adapter
