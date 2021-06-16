@@ -26,10 +26,10 @@ class SolicitationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val root = inflater.inflate(R.layout.fragment_pending, container, false)
+        val root = inflater.inflate(R.layout.fragment_solicitation, container, false)
 
         mSecurityPreferences = SecurityPreferences(requireContext())
-        val recycler = root.findViewById<RecyclerView>(R.id.emEspera)
+        val recycler = root.findViewById<RecyclerView>(R.id.solicitations)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = mAdapter
 
@@ -50,7 +50,7 @@ class SolicitationFragment : Fragment() {
         val token = mSecurityPreferences.get("token")
         val user = mSecurityPreferences.get("user")
         if(user != ""){
-            mAppointmentRepository.loadWait("Bearer $token", user, object : APIListener<ObjectModel>{
+            mAppointmentRepository.loadWaitMedic("Bearer $token", user, object : APIListener<ObjectModel>{
                 override fun onSuccess(result: ObjectModel) {
                     val appointments: ArrayList<AppointmentModel> = result.dados as ArrayList<AppointmentModel>
                     mAdapter.updateAppointment(appointments)

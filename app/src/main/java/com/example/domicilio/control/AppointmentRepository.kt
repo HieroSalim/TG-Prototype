@@ -114,4 +114,23 @@ class AppointmentRepository {
         })
     }
 
+    fun loadWaitMedic(token: String,user: String, listener: APIListener<ObjectModel>){
+        val call: Call<ObjectModel> = mRemote.loadWaitMedic(token, user)
+        call.enqueue(object : Callback<ObjectModel>{
+            override fun onResponse(call: Call<ObjectModel>, response: Response<ObjectModel>) {
+                if(response.code() != 200){
+                    val jObjError =  JSONObject(response.errorBody()!!.string())
+                    listener.onFailure(jObjError.getString("mensagem"))
+                }else{
+                    response.body()?.let { listener.onSuccess(it) }
+                }
+            }
+
+            override fun onFailure(call: Call<ObjectModel>, t: Throwable) {
+                listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
+            }
+
+        })
+    }
+
 }

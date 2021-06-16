@@ -6,12 +6,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domicilio.R
 import com.example.domicilio.services.model.AppointmentModel
+import com.example.domicilio.services.repository.local.SecurityPreferences
 import com.google.gson.internal.LinkedTreeMap
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AppointmentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
+    private lateinit var mSecurityPreferences: SecurityPreferences
 
     fun bind(medic: LinkedTreeMap<String, AppointmentModel>){
         val doctor_name = itemView.findViewById<TextView>(R.id.doctor_name)
@@ -28,7 +30,9 @@ class AppointmentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         status.text = statusFormat
 
         val button = itemView.findViewById<Button>(R.id.button_changeConsult)
-        button.visibility = if (medic["statusDoctor"].toString().split('.')[0].toInt() == 1) View.VISIBLE else View.GONE
-
+        val type =  mSecurityPreferences.get("typeUser")
+        if (medic["statusDoctor"].toString().split('.')[0].toInt() == 1 && type == "Médico") {
+            button.visibility = View.VISIBLE
+        }
     }
 }

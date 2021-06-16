@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -20,11 +21,14 @@ import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.model.UserModel
 import com.example.domicilio.services.repository.local.SecurityPreferences
 import com.example.domicilio.view.fragments.*
+import com.google.android.material.tabs.TabItem
+import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_message.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.content_main.view.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
@@ -41,19 +45,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val vpAdapter = VPAdapter(supportFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
         val viewPager : ViewPager = findViewById(R.id.viewpager)
 
+        mSecurityPreferences = SecurityPreferences(this)
         vpAdapter.addFragment(PendingFragment(), "EM ESPERA")
         vpAdapter.addFragment(InProgressFragment(), "AGENDADAS")
         vpAdapter.addFragment(CompletedFragment(), "REALIZADAS")
+        if(mSecurityPreferences.get("typeUser") == "Médico") vpAdapter.addFragment(SolicitationFragment(), "MÉDICO")
 
         viewPager.adapter = vpAdapter
         tab_layout.setupWithViewPager(viewPager)
 
-
-
         //Inicializando variaveis
-        mSecurityPreferences = SecurityPreferences(this)
         loadUser(mSecurityPreferences.get("token"))
-        if(mSecurityPreferences.get("typeUser") == "Médico") vpAdapter.addFragment(SolicitationFragment(), "SOLICITAÇÕES")
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {

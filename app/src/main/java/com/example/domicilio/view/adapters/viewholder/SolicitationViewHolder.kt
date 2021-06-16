@@ -23,7 +23,7 @@ class SolicitationViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView
         val refuse = itemView.findViewById<Button>(R.id.button_refuse)
         mSecurityPreferences = SecurityPreferences(itemView.context)
 
-        val name = "Agendamento com: ${medic["name"].toString()}"
+        val name = "Solicitante: ${medic["name"].toString()}"
         requester.text = name
 
         val dateTime = medic["dateHour"].toString().split(' ')

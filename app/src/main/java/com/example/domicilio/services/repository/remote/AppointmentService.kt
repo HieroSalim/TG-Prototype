@@ -45,4 +45,10 @@ interface AppointmentService {
         @Field("statusDoctor") status: Int,
         @Field("idAppointment") idAppointment: Int
     ):Call<MessageModel>
+
+    @GET("/appointment/medic/{user}")
+    fun loadWaitMedic(
+        @Header("Authorization") token: String,
+        @Path("user") user: String
+    ):Call<ObjectModel>
 }
