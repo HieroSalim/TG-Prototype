@@ -15,7 +15,7 @@
         android:background="@drawable/edit_text_border">
 
         <TextView
-            android:id="@+id/doctor_name"
+            android:id="@+id/requester"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -31,7 +31,7 @@
             android:id="@+id/appointment_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/doctor_name"
+            app:layout_constraintTop_toBottomOf="@+id/requester"
             app:layout_constraintLeft_toLeftOf="parent"
             android:text="Data solicitada: "
             android:textColor="@color/black"
@@ -41,7 +41,7 @@
             />
 
         <TextView
-            android:id="@+id/appointment_status"
+            android:id="@+id/appointment_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/appointment_date"

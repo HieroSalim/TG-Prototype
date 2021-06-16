@@ -33,6 +33,7 @@ class TermsDialog: AppCompatDialogFragment() {
             .setPositiveButton("Concordo") { dialog, id ->
                 val token = mSecurityPreferences.get("token")
                 mUserRepository.acceptTerm(this.requireContext(), "Bearer $token", mSecurityPreferences.get("user"), 1)
+                mSecurityPreferences.store("auth", "1")
             }
 
             .setNegativeButton("Discordo") { dialog, id ->
@@ -42,6 +43,7 @@ class TermsDialog: AppCompatDialogFragment() {
                 mSecurityPreferences.remove("typeUser")
                 mSecurityPreferences.remove("email")
                 mSecurityPreferences.remove("name")
+                mSecurityPreferences.remove("auth")
                 val intent = Intent(context, ActivityLogin::class.java)
                 val activity = activity
                 startActivity(intent)

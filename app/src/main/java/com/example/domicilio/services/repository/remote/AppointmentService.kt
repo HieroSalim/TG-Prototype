@@ -36,4 +36,13 @@ interface AppointmentService {
         @Header("Authorization") token: String,
         @Path("user") user: String
     ):Call<ObjectModel>
+
+    @POST
+    @FormUrlEncoded
+    fun accept(
+        @Header("Authorization") token: String,
+        @Field("doctors") idDoctor: Int,
+        @Field("statusDoctor") status: Int,
+        @Field("idAppointment") idAppointment: Int
+    ):Call<MessageModel>
 }

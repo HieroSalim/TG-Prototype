@@ -1,6 +1,6 @@
 package com.example.domicilio.control
 
-class Ctl_Consult(){
+class AddressRepository(){
     fun add(){
 
     }

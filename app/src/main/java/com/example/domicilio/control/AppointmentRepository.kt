@@ -1,5 +1,7 @@
 package com.example.domicilio.control
 
+import android.content.Context
+import android.widget.Toast
 import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.model.MessageModel
 import com.example.domicilio.services.model.ObjectModel
@@ -90,6 +92,25 @@ class AppointmentRepository {
                 listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
             }
 
+        })
+    }
+
+    fun accept(context: Context, token: String, idAppointment: Int, idDoctor: Int, statusDoctor: Int){
+        val call: Call<MessageModel> = mRemote.accept(token, idDoctor, statusDoctor, idAppointment)
+        call.enqueue(object : Callback<MessageModel> {
+            override fun onResponse(call: Call<MessageModel>, response: Response<MessageModel>) {
+                if(response.code() != 200){
+                    Toast.makeText(context, "Ocorreu um erro inesperado. Tente novamente mais tarde.", Toast.LENGTH_SHORT).show()
+                }else{
+                    response.body()?.let {
+                        Toast.makeText(context, it.msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<MessageModel>, t: Throwable) {
+                Toast.makeText(context, "Ocorreu um erro inesperado. Tente novamente mais tarde.", Toast.LENGTH_SHORT).show()
+            }
         })
     }
 

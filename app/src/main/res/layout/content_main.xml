@@ -41,6 +41,12 @@
                 android:layout_height="wrap_content"
                 android:text="Realizadas"
                 />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="Solicitações"
+                />
         </com.google.android.material.tabs.TabLayout>
     </androidx.viewpager.widget.ViewPager>
 

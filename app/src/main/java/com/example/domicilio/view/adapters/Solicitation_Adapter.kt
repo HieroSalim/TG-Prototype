@@ -12,7 +12,7 @@ class Solicitation_Adapter : RecyclerView.Adapter<SolicitationViewHolder>(){
     private var mAppointmentList: List<AppointmentModel> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SolicitationViewHolder {
-        val appointment = LayoutInflater.from(parent.context).inflate(R.layout.appointment_item, parent, false)
+        val appointment = LayoutInflater.from(parent.context).inflate(R.layout.solicitation_item, parent, false)
         return SolicitationViewHolder(appointment)
     }
 

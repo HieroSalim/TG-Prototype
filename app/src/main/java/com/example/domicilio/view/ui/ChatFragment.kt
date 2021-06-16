@@ -1,4 +1,4 @@
-package com.example.domicilio.view.ui.chat
+package com.example.domicilio.view.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

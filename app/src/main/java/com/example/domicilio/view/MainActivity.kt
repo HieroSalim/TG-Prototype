@@ -19,10 +19,7 @@ import com.example.domicilio.control.UserRepository
 import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.model.UserModel
 import com.example.domicilio.services.repository.local.SecurityPreferences
-import com.example.domicilio.view.fragments.CompletedFragment
-import com.example.domicilio.view.fragments.InProgressFragment
-import com.example.domicilio.view.fragments.PendingFragment
-import com.example.domicilio.view.fragments.VPAdapter
+import com.example.domicilio.view.fragments.*
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_message.*
@@ -56,6 +53,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //Inicializando variaveis
         mSecurityPreferences = SecurityPreferences(this)
         loadUser(mSecurityPreferences.get("token"))
+        if(mSecurityPreferences.get("typeUser") == "Médico") vpAdapter.addFragment(SolicitationFragment(), "SOLICITAÇÕES")
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
@@ -75,10 +73,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 mSecurityPreferences.store("name",model.name)
                 nav_view.name.text = model.user
                 nav_view.email.text = model.email
-                if(!mSecurityPreferences.get("auth").toBoolean()){
+                if(mSecurityPreferences.get("auth").toInt() != 1){
                     openDialog()
                 }
-                mSecurityPreferences.remove("auth")
             }
 
             override fun onFailure(str: String) {
@@ -88,6 +85,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     mSecurityPreferences.remove("typeUser")
                     mSecurityPreferences.remove("email")
                     mSecurityPreferences.remove("name")
+                    mSecurityPreferences.remove("auth")
                     startActivity(Intent(this@MainActivity, ActivityLogin::class.java))
                     finish()
                 }else{
@@ -114,6 +112,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             mSecurityPreferences.remove("typeUser")
             mSecurityPreferences.remove("email")
             mSecurityPreferences.remove("name")
+            mSecurityPreferences.remove("auth")
             val intent = Intent(this, ActivityLogin::class.java)
             startActivity(intent)
             finish()
