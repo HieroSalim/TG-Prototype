@@ -2,6 +2,7 @@ package com.example.domicilio.control
 
 import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.model.DoctorModel
+import com.example.domicilio.services.model.MessageModel
 import com.example.domicilio.services.model.ObjectModel
 import com.example.domicilio.services.model.ProfileModel
 import com.example.domicilio.services.repository.remote.DoctorService
@@ -109,6 +110,27 @@ class DoctorRepository {
             }
 
             override fun onFailure(call: Call<ProfileModel>, t: Throwable) {
+                listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
+            }
+
+        })
+    }
+
+    fun addProfile(token: String, description: String, user: String, price: Float,
+                   listener: APIListener<MessageModel>){
+        val call: Call<MessageModel> = mRemote.addProfile("Bearer $token", description,
+            user, price)
+
+        call.enqueue(object : Callback<MessageModel>{
+            override fun onResponse(call: Call<MessageModel>, response: Response<MessageModel>) {
+                if(response.code() != 200){
+                    listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
+                }else{
+                    response.body()?.let { listener.onSuccess(it) }
+                }
+            }
+
+            override fun onFailure(call: Call<MessageModel>, t: Throwable) {
                 listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
             }
 

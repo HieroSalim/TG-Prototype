@@ -20,6 +20,7 @@ class AppointmentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val dateHourAppointment = itemView.findViewById<TextView>(R.id.appointment_date)
         val status = itemView.findViewById<TextView>(R.id.appointment_status)
 
+        mSecurityPreferences = SecurityPreferences(itemView.context)
         val name = "Agendamento com: ${medic["name"].toString()}"
         doctor_name.text = name
 

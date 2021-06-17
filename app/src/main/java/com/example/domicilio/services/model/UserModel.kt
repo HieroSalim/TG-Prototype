@@ -13,4 +13,6 @@ class UserModel{
     var email: String = ""
     @SerializedName("name")
     var name: String = ""
+    @SerializedName("cell")
+    var cell: String = ""
 }

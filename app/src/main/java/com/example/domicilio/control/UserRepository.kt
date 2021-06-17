@@ -6,6 +6,7 @@ import android.content.Intent
 import android.widget.Toast
 import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.model.LoginModel
+import com.example.domicilio.services.model.MessageModel
 import com.example.domicilio.services.model.UserModel
 import com.example.domicilio.services.repository.remote.RetrofitClient
 import com.example.domicilio.services.repository.remote.UserService
@@ -152,6 +153,45 @@ class UserRepository {
 
             override fun onFailure(call: Call<LoginModel>, t: Throwable) {
                 Toast.makeText(context, "Ocorreu um erro inesperado. Tente novamente mais tarde.", Toast.LENGTH_LONG).show()
+            }
+
+        })
+    }
+
+    fun loadData(token: String, user: String, listener: APIListener<UserModel>){
+        val call: Call<UserModel> = mRemote.loadData(token, user)
+
+        call.enqueue(object : Callback<UserModel>{
+            override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
+                if(response.code() != 200){
+                    val jObjError = JSONObject(response.errorBody()!!.string())
+                    listener.onFailure(jObjError.getString("mensagem"))
+                }else{
+                    response.body()?.let { listener.onSuccess(it) }
+                }
+            }
+
+            override fun onFailure(call: Call<UserModel>, t: Throwable) {
+                listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
+            }
+
+        })
+    }
+
+    fun editData(token: String, user: String, name: String, cell: String, listener: APIListener<MessageModel>){
+        val call: Call<MessageModel> = mRemote.editData("Bearer $token", user, name, cell)
+
+        call.enqueue(object : Callback<MessageModel>{
+            override fun onResponse(call: Call<MessageModel>, response: Response<MessageModel>) {
+                if(response.code() != 200){
+                    listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
+                }else{
+                    response.body()?.let { listener.onSuccess(it) }
+                }
+            }
+
+            override fun onFailure(call: Call<MessageModel>, t: Throwable) {
+                listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
             }
 
         })

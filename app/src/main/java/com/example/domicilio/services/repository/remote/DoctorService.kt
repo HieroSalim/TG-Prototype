@@ -1,6 +1,7 @@
 package com.example.domicilio.services.repository.remote
 
 import com.example.domicilio.services.model.DoctorModel
+import com.example.domicilio.services.model.MessageModel
 import com.example.domicilio.services.model.ObjectModel
 import com.example.domicilio.services.model.ProfileModel
 import com.google.gson.annotations.SerializedName
@@ -36,4 +37,13 @@ interface DoctorService {
         @Header("Authorization") token: String,
         @Path("id") idProfile: Int
     ):Call<ProfileModel>
+
+    @POST("doctor/profile")
+    @FormUrlEncoded
+    fun addProfile(
+        @Header("Authorization") token: String,
+        @Field("description") description: String,
+        @Field("user") user: String,
+        @Field("price") price: Float
+    ):Call<MessageModel>
 }

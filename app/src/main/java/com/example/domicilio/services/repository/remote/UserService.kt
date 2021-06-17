@@ -1,6 +1,7 @@
 package com.example.domicilio.services.repository.remote
 
 import com.example.domicilio.services.model.LoginModel
+import com.example.domicilio.services.model.MessageModel
 import com.example.domicilio.services.model.UserModel
 import retrofit2.Call
 import retrofit2.http.*
@@ -36,4 +37,19 @@ interface UserService {
         @Field("user") user: String,
         @Field("status") status: Int
     ): Call<LoginModel>
+
+    @GET("user/{user}")
+    fun loadData(
+        @Header("Authorization") token: String,
+        @Path("user") user: String
+    ):Call<UserModel>
+
+    @PATCH("user")
+    @FormUrlEncoded
+    fun editData(
+        @Header("Authorization") token: String,
+        @Field("user") user: String,
+        @Field("name") name: String,
+        @Field("cell") cell: String
+        ):Call<MessageModel>
 }

@@ -42,19 +42,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toolbar.setNavigationIcon(R.drawable.ic_menu)
         setSupportActionBar(toolbar)
 
-        val vpAdapter = VPAdapter(supportFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
-        val viewPager : ViewPager = findViewById(R.id.viewpager)
-
         mSecurityPreferences = SecurityPreferences(this)
-        vpAdapter.addFragment(PendingFragment(), "EM ESPERA")
-        vpAdapter.addFragment(InProgressFragment(), "AGENDADAS")
-        vpAdapter.addFragment(CompletedFragment(), "REALIZADAS")
-        if(mSecurityPreferences.get("typeUser") == "Médico") vpAdapter.addFragment(SolicitationFragment(), "MÉDICO")
-
-        viewPager.adapter = vpAdapter
-        tab_layout.setupWithViewPager(viewPager)
-
-        //Inicializando variaveis
         loadUser(mSecurityPreferences.get("token"))
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
@@ -66,15 +54,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
 
+
+
     private fun loadUser(token: String){
+        val vpAdapter = VPAdapter(supportFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
+        val viewPager : ViewPager = findViewById(R.id.viewpager)
         mUserRepository.loadSession(token, object : APIListener<UserModel> {
             override fun onSuccess(model: UserModel) {
+                vpAdapter.addFragment(PendingFragment(), "EM ESPERA")
+                vpAdapter.addFragment(InProgressFragment(), "AGENDADAS")
+                vpAdapter.addFragment(CompletedFragment(), "REALIZADAS")
+                if(model.typeUser == "Médico") vpAdapter.addFragment(SolicitationFragment(), "MÉDICO")
+
+                viewPager.adapter = vpAdapter
+                tab_layout.setupWithViewPager(viewPager)
+
                 mSecurityPreferences.store("user",model.user)
                 mSecurityPreferences.store("typeUser",model.typeUser)
                 mSecurityPreferences.store("email",model.email)
                 mSecurityPreferences.store("name",model.name)
-                nav_view.name.text = model.user
-                nav_view.email.text = model.email
+                nav_view.name?.text = model.user
+                nav_view.email?.text = model.email
                 if(mSecurityPreferences.get("auth").toInt() != 1){
                     openDialog()
                 }
