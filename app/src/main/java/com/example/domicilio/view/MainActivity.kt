@@ -105,7 +105,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.account_settings){
-            startActivity(Intent(this, ActivityAccountConfig::class.java))
+            if(mSecurityPreferences.get("typeUser") == "Médico"){
+                startActivity(Intent(this, ActivityDoctorEdit::class.java))
+            }else{
+                startActivity(Intent(this, ActivityAccountConfig::class.java))
+            }
         }
         if (item.itemId == R.id.logout) {
             FirebaseAuth.getInstance().signOut()

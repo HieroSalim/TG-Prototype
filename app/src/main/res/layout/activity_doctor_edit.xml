@@ -1,80 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        tools:context=".view.ActivityAccountConfig">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ActivityDoctorEdit">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/user_image"
+            android:id="@+id/doctor_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="16dp"
             android:src="@drawable/ic_baseline_person_24"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/user_name_edit"
+            android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:imeOptions="actionDone"
-            android:text="Nome"
-            android:padding="6dp"
             android:layout_margin="16dp"
+            android:inputType="phone"
+            android:padding="6dp"
+            android:text="Nome"
             android:textSize="18sp"
+
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_image" />
-
+            app:layout_constraintTop_toBottomOf="@+id/doctor_image" />
 
         <EditText
             android:id="@+id/user_phone_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:imeOptions="actionDone"
-            android:text="Telefone"
+            android:layout_margin="16dp"
             android:inputType="phone"
-            android:textSize="18sp"
             android:padding="6dp"
-            android:layout_margin="16dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_name_edit" />
-
-
-
-        <EditText
-            android:id="@+id/user_address_edit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:imeOptions="actionDone"
-            android:text="Endereço"
-            android:padding="6dp"
-            android:layout_margin="16dp"
+            android:text="Telefone"
             android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_phone_edit" />
+            app:layout_constraintTop_toBottomOf="@+id/name" />
 
         <Button
-            android:id="@+id/update_button"
-            android:layout_width="match_parent"
+            android:id="@+id/editBasic"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Atualizar"
             android:layout_margin="16dp"
             android:background="@drawable/button_border"
+            android:text="Editar Informações Pessoais"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/user_phone_edit" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/div1"
+            android:background="@color/teal_200"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+
+            app:layout_constraintTop_toBottomOf="@id/editBasic"
+            />
+
+        <TextView
+            android:id="@+id/profileText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Perfil do Médico"
+            android:textColor="@color/teal_300"
+            android:textSize="20sp"
+            android:layout_margin="32dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/div1"/>
+
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="128dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/edit_text_border"
+            android:gravity="left"
+            android:hint="Descrição de Perfil Médico"
+            android:padding="6dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profileText" />
+
+        <EditText
+            android:id="@+id/priceConsult"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:inputType="numberDecimal"
+            android:padding="6dp"
+            android:hint="Preço da Consulta"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description" />
+
+        <Button
+            android:id="@+id/editProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/button_border"
+            android:text="Criar ou Editar Perfil"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/priceConsult" />
+
+        <ImageView
+            android:id="@+id/div2"
+            android:background="@color/teal_200"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintTop_toBottomOf="@id/editProfile"
+            />
+
+        <TextView
+            android:id="@+id/AddressText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Endereços Cadastrados"
+            android:textColor="@color/teal_300"
+            android:textSize="20sp"
+            android:layout_margin="32dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/div2"/>
+
+        <TextView
+            android:id="@+id/textAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Selecione o endereço"
+            android:textColor="@color/teal_200"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/addAddress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/AddressText" />
+
+        <Spinner
+            android:id="@+id/address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            app:layout_constraintEnd_toStartOf="@id/addAddress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textAddress" />
+
+        <ImageButton
+            android:id="@+id/addAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#4CAF50"
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="@+id/address"
+            app:layout_constraintEnd_toStartOf="@id/removeAddress"
+            app:layout_constraintStart_toEndOf="@+id/address"
+            app:layout_constraintTop_toBottomOf="@+id/textAddress" />
+
+        <ImageButton
+            android:id="@+id/removeAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_refused"
+            app:layout_constraintBottom_toBottomOf="@+id/address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/addAddress"
+            app:layout_constraintTop_toBottomOf="@+id/textAddress" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

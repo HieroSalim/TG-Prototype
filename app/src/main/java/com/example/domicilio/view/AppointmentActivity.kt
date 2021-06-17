@@ -7,18 +7,23 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domicilio.R
+import com.example.domicilio.control.AddressRepository
 import com.example.domicilio.control.DoctorRepository
-import com.example.domicilio.view.adapters.MedicAdapter
 import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.listener.AppointmentListener
 import com.example.domicilio.services.model.AddressModel
 import com.example.domicilio.services.model.DoctorModel
 import com.example.domicilio.services.model.ObjectModel
 import com.example.domicilio.services.repository.local.SecurityPreferences
+import com.example.domicilio.view.adapters.MedicAdapter
+import com.example.domicilio.view.fragments.DialogFragmentAddress
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.internal.LinkedTreeMap
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_appointment.*
 import kotlinx.android.synthetic.main.activity_register_doctor.*
 import kotlinx.android.synthetic.main.activity_register_doctor.typeProfessional
@@ -29,6 +34,7 @@ import kotlin.collections.ArrayList
 
 class AppointmentActivity : AppCompatActivity(), View.OnClickListener{
     private val mDoctorRepository = DoctorRepository()
+    private val mAddressRepository = AddressRepository()
     private lateinit var mSecurityPreferences: SecurityPreferences
     private lateinit var mListener: AppointmentListener
     private val mAdapter = MedicAdapter()
@@ -78,6 +84,7 @@ class AppointmentActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun setListeners() {
+        addAddress.setOnClickListener(this)
         time_picker.setOnClickListener(this)
         date_picker.setOnClickListener(this)
         search_doctor.setOnClickListener(this)
@@ -91,13 +98,25 @@ class AppointmentActivity : AppCompatActivity(), View.OnClickListener{
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, typeProfessionals)
         typeProfessional.adapter = adapterProfessionals
 
-
         val Address: MutableList<AddressModel> = arrayListOf()
-        Address.add(AddressModel("Rua de Teste", 5))
+        val token = mSecurityPreferences.get("token")
+        mAddressRepository.listByUser("Bearer $token", mSecurityPreferences.get("user"),object : APIListener<ObjectModel>{
+            override fun onSuccess(result: ObjectModel) {
+                val list = result.dados as ArrayList<LinkedTreeMap<String, AddressModel>>
 
-        val adapterAdress =
-            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Address)
-        address.adapter = adapterAdress
+                list.forEach {
+                    Address.add(AddressModel(it["street"].toString(), it["idAddress"].toString().split('.')[0].toInt()))
+                }
+                val adapterAdress =
+                    ArrayAdapter(this@AppointmentActivity, android.R.layout.simple_spinner_dropdown_item, Address)
+                address.adapter = adapterAdress
+            }
+
+            override fun onFailure(str: String) {
+                Toast.makeText(this@AppointmentActivity, str, Toast.LENGTH_SHORT).show()
+            }
+
+        })
     }
 
     override fun onClick(v: View) {
@@ -134,6 +153,10 @@ class AppointmentActivity : AppCompatActivity(), View.OnClickListener{
                     Toast.makeText(this@AppointmentActivity, msg, Toast.LENGTH_SHORT).show()
                 }
             })
+        }
+        if(v.id == R.id.addAddress){
+            val dialog = DialogFragmentAddress()
+            dialog.show(supportFragmentManager, "Endereço")
         }
     }
 
