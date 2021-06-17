@@ -38,10 +38,7 @@ class MessageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_message)
 
-        setSupportActionBar(toolbar)
         supportActionBar?.title = "Conversas"
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        //toolbar.setNavigationOnClickListener()
 
         recyclerView = findViewById(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
