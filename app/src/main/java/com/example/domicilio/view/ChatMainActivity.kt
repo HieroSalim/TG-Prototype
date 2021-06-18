@@ -4,16 +4,23 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.domicilio.R
+import com.example.domicilio.control.UserRepository
+import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.view.adapters.UserChat_Adapter
 import com.example.domicilio.services.model.ChatListModel
+import com.example.domicilio.services.model.ObjectModel
 import com.example.domicilio.services.model.UserChatModel
+import com.example.domicilio.services.model.UserModel
+import com.example.domicilio.services.repository.local.SecurityPreferences
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.gson.internal.LinkedTreeMap
 import kotlinx.android.synthetic.main.activity_chat_main.*
 
 class ChatMainActivity : AppCompatActivity(), View.OnClickListener {
@@ -23,6 +30,8 @@ class ChatMainActivity : AppCompatActivity(), View.OnClickListener {
     var mUsers: MutableList<UserChatModel> = mutableListOf()
     lateinit var reference: DatabaseReference
     lateinit var usersList: MutableList<ChatListModel>
+    lateinit var mSecurityPreferences: SecurityPreferences
+    private val mUserRepository = UserRepository()
     var mContext : Context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +46,8 @@ class ChatMainActivity : AppCompatActivity(), View.OnClickListener {
                     it.uid
                 )
             }
+
+        mSecurityPreferences = SecurityPreferences(mContext)
 
         recyclerView = findViewById(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
@@ -76,28 +87,44 @@ class ChatMainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun readUsers() {
-        val firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
-        val reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("Users")
+        val reference: DatabaseReference = FirebaseDatabase.getInstance().getReference()
 
-        reference.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                mUsers.clear()
-                for (snapshot in snapshot.children){
-                    val user: UserChatModel? = snapshot.getValue(UserChatModel::class.java)
+        mUserRepository.loadChats(mSecurityPreferences.get("token"), mSecurityPreferences.get("user"),
+            object : APIListener<ObjectModel>{
+                override fun onSuccess(result: ObjectModel) {
+                    val list = result.dados as ArrayList<LinkedTreeMap<String, UserModel>>
+                    list.forEach {
+                        var user: String
+                        if(mSecurityPreferences.get("user").equals(it.get("userClient").toString())) {
+                            user = it.get("userDoctor").toString()
+                        }else{
+                            user = it.get("userClient").toString()
+                        }
+                        var query = reference.child("Users").orderByChild("username").equalTo(user)
+                        query.addValueEventListener(object : ValueEventListener{
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                if(snapshot.exists()){
+                                    for(snapshot in snapshot.children){
+                                        val user: UserChatModel? = snapshot.getValue(UserChatModel::class.java)
+                                        mUsers.add(user!!)
+                                    }
+                                }
+                                userChatAdapter =  UserChat_Adapter(mContext, mUsers, true)
+                                recyclerView.adapter= userChatAdapter
+                            }
 
-                    if(!user!!.id.equals(firebaseUser!!.uid)){
-                        mUsers.add(user)
+                            override fun onCancelled(error: DatabaseError) {
+
+                            }
+
+                        })
                     }
                 }
 
-                userChatAdapter =  UserChat_Adapter(mContext, mUsers, true)
-                recyclerView.adapter= userChatAdapter
-            }
+                override fun onFailure(str: String) {
+                    Toast.makeText(this@ChatMainActivity, str, Toast.LENGTH_SHORT).show()
+                }
 
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-
-        })
+            })
     }
 }

@@ -121,7 +121,7 @@
             android:layout_margin="16dp"
             android:background="@drawable/edit_text_border"
             android:gravity="left"
-            android:hint="Descrição"
+            android:hint="Descrição dos Sintomas"
             android:padding="6dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/date_text" />

@@ -1,13 +1,20 @@
 package com.example.domicilio.view.adapters.viewholder
 
+import android.app.Activity
+import android.content.Intent
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domicilio.R
 import com.example.domicilio.control.AppointmentRepository
+import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.model.AppointmentModel
+import com.example.domicilio.services.model.MessageModel
 import com.example.domicilio.services.repository.local.SecurityPreferences
+import com.example.domicilio.view.MainActivity
+import com.example.domicilio.view.adapters.Solicitation_Adapter
 import com.google.gson.internal.LinkedTreeMap
 
 class SolicitationViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -37,12 +44,24 @@ class SolicitationViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView
             val token = mSecurityPreferences.get("token")
             mAppointmentRepository.accept(itemView.context,"Bearer $token", medic["idAppointment"].toString().split('.')[0].toInt()
                 , medic["idDoctor"].toString().split('.')[0].toInt(), 1)
+            itemView.context.applicationContext.startActivity(Intent(itemView.context, MainActivity::class.java))
         }
 
         refuse.setOnClickListener {
             val token = mSecurityPreferences.get("token")
-            mAppointmentRepository.accept(itemView.context,"Bearer $token", medic["idAppointment"].toString().split('.')[0].toInt()
-                , medic["idDoctor"].toString().split('.')[0].toInt(), 0)
+
+            mAppointmentRepository.refuse("Bearer $token", medic["idAppointment"].toString().split('.')[0].toInt()
+                , object : APIListener<MessageModel>{
+                    override fun onSuccess(result: MessageModel) {
+                        Toast.makeText(itemView.context, result.msg, Toast.LENGTH_SHORT).show()
+                        itemView.context.applicationContext.startActivity(Intent(itemView.context, MainActivity::class.java))
+                    }
+
+                    override fun onFailure(str: String) {
+                        Toast.makeText(itemView.context, str, Toast.LENGTH_SHORT).show()
+                    }
+
+                })
         }
     }
 

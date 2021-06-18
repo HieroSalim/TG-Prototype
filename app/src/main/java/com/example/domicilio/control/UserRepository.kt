@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.model.LoginModel
 import com.example.domicilio.services.model.MessageModel
+import com.example.domicilio.services.model.ObjectModel
 import com.example.domicilio.services.model.UserModel
 import com.example.domicilio.services.repository.remote.RetrofitClient
 import com.example.domicilio.services.repository.remote.UserService
@@ -191,6 +192,26 @@ class UserRepository {
             }
 
             override fun onFailure(call: Call<MessageModel>, t: Throwable) {
+                listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
+            }
+
+        })
+    }
+
+    fun loadChats(token: String, user: String,listener: APIListener<ObjectModel>){
+        val call: Call<ObjectModel> = mRemote.loadChats("Bearer $token", user)
+
+        call.enqueue(object : Callback<ObjectModel>{
+            override fun onResponse(call: Call<ObjectModel>, response: Response<ObjectModel>) {
+                if(response.code() != 200){
+                    val jObjError = JSONObject(response.errorBody()!!.string())
+                    listener.onFailure(jObjError.getString("mensagem"))
+                }else{
+                    response.body()?.let { listener.onSuccess(it) }
+                }
+            }
+
+            override fun onFailure(call: Call<ObjectModel>, t: Throwable) {
                 listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
             }
 

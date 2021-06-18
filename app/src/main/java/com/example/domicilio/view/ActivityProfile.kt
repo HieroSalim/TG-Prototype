@@ -43,6 +43,7 @@ class ActivityProfile : AppCompatActivity(), View.OnClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == android.R.id.home) {
+            finishActivity(RESULT_CANCELED)
             finish()
         }
         return super.onOptionsItemSelected(item)
@@ -71,22 +72,6 @@ class ActivityProfile : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    fun edit() {
-
-    }
-
-    fun save() {
-
-    }
-
-    fun addPicture() {
-
-    }
-
-    fun attEvalue() {
-
-    }
-
     override fun onClick(v: View) {
         if (v.id == R.id.setAppointment) {
             val bundle = intent.extras
@@ -99,6 +84,7 @@ class ActivityProfile : AppCompatActivity(), View.OnClickListener {
                 description.toString(), dateHour.toString(), idMedic.toString(), 0,
                 idAddress.toString().toInt(), object : APIListener<MessageModel> {
                     override fun onSuccess(result: MessageModel) {
+                        setResult(1)
                         finishActivity(1)
                         finish()
                     }

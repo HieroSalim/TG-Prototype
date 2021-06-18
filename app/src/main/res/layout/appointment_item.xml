@@ -57,11 +57,12 @@
             android:id="@+id/button_changeConsult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:text="Começar"
             android:visibility="gone"
-            android:layout_margin="4dp"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/doctor_image"/>
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageView
             android:id="@+id/doctor_image"

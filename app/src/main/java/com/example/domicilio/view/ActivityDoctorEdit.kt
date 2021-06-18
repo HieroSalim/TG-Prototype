@@ -55,7 +55,9 @@ class ActivityDoctorEdit : AppCompatActivity(), View.OnClickListener {
                     Toast.makeText(this@ActivityDoctorEdit, str, Toast.LENGTH_SHORT).show()
                 }
 
-            })
+            }
+        )
+        //mDoctorRepository.loadProfile(token, )
     }
 
     private fun setListeners(){

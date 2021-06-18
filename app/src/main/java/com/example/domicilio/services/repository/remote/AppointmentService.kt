@@ -51,4 +51,33 @@ interface AppointmentService {
         @Header("Authorization") token: String,
         @Path("user") user: String
     ):Call<ObjectModel>
+
+    @GET("/appointment/consults/{user}")
+    fun loadConsults(
+        @Header("Authorization") token: String,
+        @Path("user") user: String
+    ):Call<ObjectModel>
+
+    @POST("/appointment/start")
+    @FormUrlEncoded
+    fun start(
+        @Header("Authorization") token: String,
+        @Field("idAppointment") idAppointment : Int,
+        @Field("idDoctor") idDoctor: Int,
+        @Field("dateStart") dateStart: String
+    ):Call<MessageModel>
+
+    @DELETE("/appointment/{idAppointment}")
+    fun refuse(
+        @Header("Authorization") token: String,
+        @Path("idAppointment") idAppointment: Int
+    ):Call<MessageModel>
+
+    @PATCH("/appointment/finish")
+    @FormUrlEncoded
+    fun finish(
+        @Header("Authorization") token: String,
+        @Field("idAppointment") idAppointment: Int,
+        @Field("dateFinish") dateFinish: String
+    ):Call<MessageModel>
 }

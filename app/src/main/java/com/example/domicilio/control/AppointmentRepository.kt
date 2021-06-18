@@ -133,4 +133,74 @@ class AppointmentRepository {
         })
     }
 
+    fun loadConsults(token: String,user: String, listener: APIListener<ObjectModel>){
+        val call: Call<ObjectModel> = mRemote.loadConsults(token, user)
+        call.enqueue(object : Callback<ObjectModel>{
+            override fun onResponse(call: Call<ObjectModel>, response: Response<ObjectModel>) {
+                if(response.code() != 200){
+                    val jObjError =  JSONObject(response.errorBody()!!.string())
+                    listener.onFailure(jObjError.getString("mensagem"))
+                }else{
+                    response.body()?.let { listener.onSuccess(it) }
+                }
+            }
+
+            override fun onFailure(call: Call<ObjectModel>, t: Throwable) {
+                listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
+            }
+
+        })
+    }
+
+    fun startConsult(token: String, idDoctor: Int, appointment_id: Int, dateStart: String, listener: APIListener<MessageModel>){
+        val call: Call<MessageModel> = mRemote.start("Bearer $token", idDoctor, appointment_id, dateStart)
+        call.enqueue(object : Callback<MessageModel>{
+            override fun onResponse(call: Call<MessageModel>, response: Response<MessageModel>) {
+                if(response.code() != 201){
+                    listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
+                }else{
+                    response.body()?.let { listener.onSuccess(it) }
+                }
+            }
+
+            override fun onFailure(call: Call<MessageModel>, t: Throwable) {
+                listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
+            }
+
+        })
+    }
+
+    fun refuse(token: String, idAppointment: Int, listener: APIListener<MessageModel>){
+        val call: Call<MessageModel> = mRemote.refuse(token, idAppointment)
+        call.enqueue(object : Callback<MessageModel>{
+            override fun onResponse(call: Call<MessageModel>, response: Response<MessageModel>) {
+                if(response.code() != 200){
+                    listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
+                }else{
+                    response.body()?.let { listener.onSuccess(it) }
+                }
+            }
+
+            override fun onFailure(call: Call<MessageModel>, t: Throwable) {
+                listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
+            }
+
+        })
+    }
+
+    fun finish(token: String, idAppointment: Int, dateFinish: String, listener: APIListener<MessageModel>){
+        val call: Call<MessageModel> = mRemote.finish("Bearer $token", idAppointment, dateFinish)
+
+        call.enqueue(object : Callback<MessageModel> {
+            override fun onResponse(call: Call<MessageModel>, response: Response<MessageModel>) {
+                response.body()?.let { listener.onSuccess(it) }
+            }
+
+            override fun onFailure(call: Call<MessageModel>, t: Throwable) {
+                listener.onFailure("Ocorreu um erro inesperado. Tente novamente mais tarde.")
+            }
+
+        })
+    }
+
 }

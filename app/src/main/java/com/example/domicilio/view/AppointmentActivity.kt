@@ -61,6 +61,7 @@ class AppointmentActivity : AppCompatActivity(), View.OnClickListener{
                 bundle.putInt("idProfile", id)
                 bundle.putString("dateHour","$dateFormat $hour")
                 bundle.putInt("idAddress", Street.idAddress)
+                bundle.putString("description", appointment_description.text.toString())
                 intent.putExtras(bundle)
                 startActivityForResult(intent, 1)
             }
@@ -73,7 +74,7 @@ class AppointmentActivity : AppCompatActivity(), View.OnClickListener{
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1){
+        if (resultCode == 1){
             finish()
         }
     }

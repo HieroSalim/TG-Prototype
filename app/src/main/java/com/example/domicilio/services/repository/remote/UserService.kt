@@ -2,6 +2,7 @@ package com.example.domicilio.services.repository.remote
 
 import com.example.domicilio.services.model.LoginModel
 import com.example.domicilio.services.model.MessageModel
+import com.example.domicilio.services.model.ObjectModel
 import com.example.domicilio.services.model.UserModel
 import retrofit2.Call
 import retrofit2.http.*
@@ -52,4 +53,11 @@ interface UserService {
         @Field("name") name: String,
         @Field("cell") cell: String
         ):Call<MessageModel>
+
+    @GET("user/chat/{user}")
+    fun loadChats(
+        @Header("Authorization") token: String,
+        @Path("user") user: String
+    ):Call<ObjectModel>
+
 }

@@ -14,6 +14,7 @@ import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.model.AppointmentModel
 import com.example.domicilio.services.model.ObjectModel
 import com.example.domicilio.services.repository.local.SecurityPreferences
+import com.example.domicilio.view.adapters.Appointment_Adapter
 import com.example.domicilio.view.adapters.Solicitation_Adapter
 
 class SolicitationFragment : Fragment() {
@@ -21,6 +22,7 @@ class SolicitationFragment : Fragment() {
     private val mAppointmentRepository = AppointmentRepository()
     private lateinit var mSecurityPreferences: SecurityPreferences
     private val mAdapter = Solicitation_Adapter()
+    private val mAdapterConsult = Appointment_Adapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +34,10 @@ class SolicitationFragment : Fragment() {
         val recycler = root.findViewById<RecyclerView>(R.id.solicitations)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = mAdapter
+
+        val recyclerConsult = root.findViewById<RecyclerView>(R.id.consults)
+        recyclerConsult.layoutManager = LinearLayoutManager(context)
+        recyclerConsult.adapter = mAdapterConsult
 
         return root
     }
@@ -62,6 +68,20 @@ class SolicitationFragment : Fragment() {
                 }
 
             })
+
+            mAppointmentRepository.loadConsults("Bearer $token", user, object : APIListener<ObjectModel>{
+                override fun onSuccess(result: ObjectModel) {
+                    val appointments: ArrayList<AppointmentModel> = result.dados as ArrayList<AppointmentModel>
+                    mAdapterConsult.updateAppointment(appointments)
+                    mAdapterConsult.notifyDataSetChanged()
+                }
+
+                override fun onFailure(str: String) {
+                    if (notify) Toast.makeText(requireContext(), str, Toast.LENGTH_SHORT).show()
+                }
+
+            })
         }
+
     }
 }
