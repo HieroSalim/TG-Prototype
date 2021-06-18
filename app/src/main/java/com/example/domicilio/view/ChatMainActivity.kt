@@ -4,13 +4,21 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.domicilio.R
+import com.example.domicilio.control.AppointmentRepository
+import com.example.domicilio.services.listener.APIListener
+import com.example.domicilio.services.model.AppointmentModel
 import com.example.domicilio.view.adapters.UserChat_Adapter
 import com.example.domicilio.services.model.ChatListModel
+import com.example.domicilio.services.model.ObjectModel
 import com.example.domicilio.services.model.UserChatModel
+import com.example.domicilio.services.repository.local.SecurityPreferences
+import com.example.domicilio.view.adapters.Appointment_Adapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -21,13 +29,15 @@ class ChatMainActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var recyclerView: RecyclerView
     lateinit var userChatAdapter: UserChat_Adapter
     var mUsers: MutableList<UserChatModel> = mutableListOf()
-    lateinit var reference: DatabaseReference
     lateinit var usersList: MutableList<ChatListModel>
     var mContext : Context = this
+    private val mAppointmentRepository = AppointmentRepository()
+    lateinit var mSecurityPreferences: SecurityPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.title = "Conversas"
+        mSecurityPreferences = SecurityPreferences(this)
 
         setContentView(R.layout.activity_chat_main)
         var mFirebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
@@ -47,28 +57,6 @@ class ChatMainActivity : AppCompatActivity(), View.OnClickListener {
         usersList = mutableListOf()
 
         readUsers()
-
-        mDatabaseReference?.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val userChatModel: UserChatModel? = snapshot.getValue(UserChatModel::class.java)
-                if (userChatModel != null) {
-                    user_name_main.text = userChatModel.username
-                }
-                if (userChatModel != null) {
-                    if (userChatModel.imageURL == "default") {
-                        profile_image.setImageResource(R.mipmap.ic_launcher)
-                    } else {
-
-                        Glide.with(applicationContext).load(userChatModel.imageURL).into(profile_image)
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-
-        })
     }
 
     override fun onClick(v: View) {
@@ -77,19 +65,26 @@ class ChatMainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun readUsers() {
         val firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
-        val reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("Users")
-
-        reference.addValueEventListener(object : ValueEventListener{
+        var reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("Users")
+        var query: Query = reference.child("Users").orderByChild("username").equalTo("")
+        query.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 mUsers.clear()
                 for (snapshot in snapshot.children){
                     val user: UserChatModel? = snapshot.getValue(UserChatModel::class.java)
-
-                    if(!user!!.id.equals(firebaseUser!!.uid)){
-                        mUsers.add(user)
-                    }
+                    var i: Int = 0
+                    //if(appointments.size>0){
+                        //while(i <= appointments.size) {
+                            //if (user!!.username.equals(appointments[i].doctors)){
+                                //mUsers.add(user)
+                           // }
+                            //i++
+                        //}
+                   // }
+                    //else{
+                        //Toast.makeText( this@ChatMainActivity,"Não há nenhuma conversa para visualizar.", Toast.LENGTH_LONG).show()
+                    //}
                 }
-
                 userChatAdapter =  UserChat_Adapter(mContext, mUsers, true)
                 recyclerView.adapter= userChatAdapter
             }

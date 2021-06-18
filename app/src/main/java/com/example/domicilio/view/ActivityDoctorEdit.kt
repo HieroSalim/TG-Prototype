@@ -120,7 +120,6 @@ class ActivityDoctorEdit : AppCompatActivity(), View.OnClickListener {
                     override fun onFailure(str: String) {
                         Toast.makeText(this@ActivityDoctorEdit, str, Toast.LENGTH_SHORT).show()
                     }
-
                 }
             )
         }

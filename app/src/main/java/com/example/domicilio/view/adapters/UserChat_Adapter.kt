@@ -72,7 +72,7 @@ class UserChat_Adapter: RecyclerView.Adapter<UserChat_Adapter.ViewHolder>{
     }
 
     fun lastMessage(userid: String, last_msg: TextView){
-        var theLastMessage: String = "Default"
+        var theLastMessage: String = "Iniciar conversa"
         val firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
         val reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("Chats")
 
@@ -85,8 +85,8 @@ class UserChat_Adapter: RecyclerView.Adapter<UserChat_Adapter.ViewHolder>{
                         theLastMessage = chat!!.message
                     }
                 }
-                if(theLastMessage == "default"){
-                    last_msg.text = "No Message"
+                if(theLastMessage == "Iniciar conversa"){
+                    last_msg.text = "Iniciar conversa"
                 }
                 else{
                     last_msg.setText(theLastMessage)
