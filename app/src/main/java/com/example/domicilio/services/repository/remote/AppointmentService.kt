@@ -37,7 +37,7 @@ interface AppointmentService {
         @Path("user") user: String
     ):Call<ObjectModel>
 
-    @POST
+    @POST("/appointment/setResponse")
     @FormUrlEncoded
     fun accept(
         @Header("Authorization") token: String,

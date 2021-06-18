@@ -35,14 +35,14 @@ class SolicitationViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView
 
         accept.setOnClickListener {
             val token = mSecurityPreferences.get("token")
-            mAppointmentRepository.accept(itemView.context,"Bearer $token", medic["idAppointment"].toString().toInt()
-                , medic["idDoctor"].toString().toInt(), 1)
+            mAppointmentRepository.accept(itemView.context,"Bearer $token", medic["idAppointment"].toString().split('.')[0].toInt()
+                , medic["idDoctor"].toString().split('.')[0].toInt(), 1)
         }
 
         refuse.setOnClickListener {
             val token = mSecurityPreferences.get("token")
-            mAppointmentRepository.accept(itemView.context,"Bearer $token", medic["idAppointment"].toString().toInt()
-                , medic["idDoctor"].toString().toInt(), 0)
+            mAppointmentRepository.accept(itemView.context,"Bearer $token", medic["idAppointment"].toString().split('.')[0].toInt()
+                , medic["idDoctor"].toString().split('.')[0].toInt(), 0)
         }
     }
 

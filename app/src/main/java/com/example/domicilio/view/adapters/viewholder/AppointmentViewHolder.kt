@@ -21,7 +21,8 @@ class AppointmentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val status = itemView.findViewById<TextView>(R.id.appointment_status)
 
         mSecurityPreferences = SecurityPreferences(itemView.context)
-        val name = "Agendamento com: ${medic["name"].toString()}"
+        val type =  mSecurityPreferences.get("typeUser")
+        val name = "Agendamento com: "+ if (type == "Médico") medic["nameClient"].toString() else medic["nameDoctor"].toString()
         doctor_name.text = name
 
         val dateTime = medic["dateHour"].toString().split(' ')
@@ -31,7 +32,7 @@ class AppointmentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         status.text = statusFormat
 
         val button = itemView.findViewById<Button>(R.id.button_changeConsult)
-        val type =  mSecurityPreferences.get("typeUser")
+
         if (medic["statusDoctor"].toString().split('.')[0].toInt() == 1 && type == "Médico") {
             button.visibility = View.VISIBLE
         }
