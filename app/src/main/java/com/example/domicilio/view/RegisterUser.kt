@@ -1,6 +1,5 @@
 package com.example.domicilio.view
 
-import TermsDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,10 +11,6 @@ import com.example.domicilio.services.listener.APIListener
 import com.example.domicilio.services.model.LoginModel
 import com.example.domicilio.services.model.UserModel
 import com.example.domicilio.services.repository.local.SecurityPreferences
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register_user.*
 import java.util.*
@@ -25,19 +20,12 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
     private val mUserRepository = UserRepository()
     private lateinit var mSecurityPreferences: SecurityPreferences
 
-    //Chat
-    private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_user)
 
         supportActionBar?.title = "Registre-se"
         mSecurityPreferences = SecurityPreferences(this)
-
-        //Chat
-        firebaseAuth = FirebaseAuth.getInstance()
 
         //Inicializa os Eventos
         setListeners()
@@ -82,7 +70,6 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
                             signIn(email,pass)
                             if (checkType.isChecked) mSecurityPreferences.store("CPF", CPF)
 
-                            this@RegisterUser.firebaseSignUp(user, email, pass)
                             startActivity(Intent(this@RegisterUser, javaClass))
                             finish()
                         }
@@ -145,33 +132,6 @@ class RegisterUser : AppCompatActivity(), View.OnClickListener {
 
     fun editUser() {
 
-    }
-
-    fun firebaseSignUp(user: String, email: String, pass: String) {
-        firebaseAuth.createUserWithEmailAndPassword(email, pass)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val firebaseUser: FirebaseUser = firebaseAuth.currentUser!!
-                    val userid = firebaseUser.uid
-
-                    databaseReference = FirebaseDatabase.getInstance().getReference("Users")
-                        .child(userid)
-                    val hashmap: HashMap<String, String> = HashMap<String, String>()
-                    hashmap["id"] = userid
-                    hashmap["username"] = user
-                    hashmap["imageURL"] = "default"
-
-                    databaseReference.setValue(hashmap).addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                        }
-                    }
-                } else {
-                    Toast.makeText(
-                        baseContext, "O registro no firebase falhou.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
     }
 
     private fun signIn(email: String,pass: String){
