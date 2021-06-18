@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.domicilio.R
 import com.example.domicilio.control.UserRepository
 import com.example.domicilio.services.listener.APIListener
@@ -28,11 +27,10 @@ class ChatMainActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var recyclerView: RecyclerView
     lateinit var userChatAdapter: UserChat_Adapter
     var mUsers: MutableList<UserChatModel> = mutableListOf()
-    lateinit var reference: DatabaseReference
     lateinit var usersList: MutableList<ChatListModel>
-    lateinit var mSecurityPreferences: SecurityPreferences
     private val mUserRepository = UserRepository()
     var mContext : Context = this
+    lateinit var mSecurityPreferences: SecurityPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,28 +56,6 @@ class ChatMainActivity : AppCompatActivity(), View.OnClickListener {
         usersList = mutableListOf()
 
         readUsers()
-
-        mDatabaseReference?.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val userChatModel: UserChatModel? = snapshot.getValue(UserChatModel::class.java)
-                if (userChatModel != null) {
-                    user_name_main.text = userChatModel.username
-                }
-                if (userChatModel != null) {
-                    if (userChatModel.imageURL == "default") {
-                        profile_image.setImageResource(R.mipmap.ic_launcher)
-                    } else {
-
-                        Glide.with(applicationContext).load(userChatModel.imageURL).into(profile_image)
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-
-        })
     }
 
     override fun onClick(v: View) {

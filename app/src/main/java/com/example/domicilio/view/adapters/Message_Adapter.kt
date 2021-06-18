@@ -31,11 +31,9 @@ class Message_Adapter: RecyclerView.Adapter<Message_Adapter.ViewHolder>{
     class ViewHolder: RecyclerView.ViewHolder {
         constructor(itemView: View) : super(itemView) {
             this.show_message = show_message
-            this.profile_img = profile_img
             this.txt_seen = txt_seen
         }
         var show_message: TextView = itemView.findViewById(R.id.show_message)
-        var profile_img: ImageView = itemView.findViewById(R.id.profile_image)
         var txt_seen: TextView = itemView.findViewById(R.id.txt_seen)
     }
 
@@ -54,11 +52,6 @@ class Message_Adapter: RecyclerView.Adapter<Message_Adapter.ViewHolder>{
 
         holder.show_message.setText(chatModel.message)
 
-        if(imageurl.equals("default")){
-            holder.profile_img.setImageResource(R.mipmap.ic_launcher)
-        } else{
-            Glide.with(mContext).load(imageurl).into(holder.profile_img)
-        }
 
         if(position == mChat.size - 1){
             if(chatModel.isseen){

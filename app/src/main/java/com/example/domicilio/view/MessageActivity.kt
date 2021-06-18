@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.activity_message.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MessageActivity : AppCompatActivity() {
-    lateinit var profile_image: CircleImageView
     lateinit var username: TextView
     lateinit var fuser: FirebaseUser
     lateinit var reference: DatabaseReference
@@ -47,7 +46,6 @@ class MessageActivity : AppCompatActivity() {
         recyclerView.layoutManager = linearLayoutManager
 
 
-        profile_image = findViewById(R.id.profile_image)
         username = findViewById(R.id.username)
         button_send = findViewById(R.id.button_send)
 
@@ -82,13 +80,6 @@ class MessageActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val userChatModel: UserChatModel? = snapshot.getValue(UserChatModel::class.java)
                 username.text = userChatModel?.username
-                if(userChatModel?.imageURL.equals("default")){
-                    profile_image.setImageResource(R.mipmap.ic_launcher)
-                }
-                else{
-                    Glide.with(applicationContext).load(userChatModel?.imageURL).into(profile_image)
-                }
-
                 readMessage(fuser.uid, userid, userChatModel!!.imageURL)
             }
 
