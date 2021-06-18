@@ -61,9 +61,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_width="340dp"
+        android:padding="6dp"
         android:layout_height="wrap_content"
         app:layout_constraintRight_toLeftOf="@id/button_send"
-        android:background="@android:color/transparent"
+        android:background="@drawable/edit_text_border"
         android:hint="Digite uma mensagem " />
 
     <ImageButton

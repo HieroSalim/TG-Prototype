@@ -10,8 +10,9 @@
             android:id="@+id/profile_image"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintHorizontal_bias="0.267"
             />
         <TextView
             android:id="@+id/user_name_main"

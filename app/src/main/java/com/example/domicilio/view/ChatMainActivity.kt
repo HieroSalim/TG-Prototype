@@ -20,7 +20,7 @@ class ChatMainActivity : AppCompatActivity(), View.OnClickListener {
 
     lateinit var recyclerView: RecyclerView
     lateinit var userChatAdapter: UserChat_Adapter
-    lateinit var mUsers: MutableList<UserChatModel>
+    var mUsers: MutableList<UserChatModel> = mutableListOf()
     lateinit var reference: DatabaseReference
     lateinit var usersList: MutableList<ChatListModel>
     var mContext : Context = this
@@ -46,23 +46,7 @@ class ChatMainActivity : AppCompatActivity(), View.OnClickListener {
 
         usersList = mutableListOf()
 
-        reference =  FirebaseDatabase.getInstance().getReference("Chatlist").child(fuser!!.uid)
-        reference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                usersList.clear()
-                for(snapshot in snapshot.children){
-                    val chatListModel: ChatListModel? = snapshot.getValue(ChatListModel::class.java)
-                    chatListModel?.let { usersList.add(it) }
-                }
-
-                chatList()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
+        readUsers()
 
         mDatabaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -91,27 +75,27 @@ class ChatMainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    private fun chatList() {
-        mUsers = mutableListOf()
-        reference = FirebaseDatabase.getInstance().getReference("Users")
-        reference.addValueEventListener(object : ValueEventListener {
+    private fun readUsers() {
+        val firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+        val reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("Users")
+
+        reference.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 mUsers.clear()
-                for(snapshot in snapshot.children){
-                    val userChatModel: UserChatModel? = snapshot.getValue(UserChatModel ::class.java)
+                for (snapshot in snapshot.children){
+                    val user: UserChatModel? = snapshot.getValue(UserChatModel::class.java)
 
-                    for(chatListModel: ChatListModel in usersList){
-                        if(userChatModel!!.id == chatListModel.id){
-                            mUsers.add(userChatModel)
-                        }
+                    if(!user!!.id.equals(firebaseUser!!.uid)){
+                        mUsers.add(user)
                     }
                 }
-                userChatAdapter = UserChat_Adapter(mContext, mUsers, ischat = true)
-                recyclerView.adapter = userChatAdapter
+
+                userChatAdapter =  UserChat_Adapter(mContext, mUsers, true)
+                recyclerView.adapter= userChatAdapter
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
 
         })
